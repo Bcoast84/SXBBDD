@@ -1,0 +1,1405 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>TAREA3: Modelado -Adm. SQL SERVER</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: undefined; }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-transparentGray { background-color: undefined; }
+.select-value-color-translucentGray { background-color: undefined; }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="11abadfb-262d-80e6-8bbe-c8ebf72b0be5" class="page sans"><header><img class="page-cover-image" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/acid.jpg" style="object-position:center 32.68%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">👷🏽‍♂️</span></div><h1 class="page-title">TAREA3: Modelado -Adm. SQL SERVER</h1><p class="page-description"></p></header><div class="page-body"><nav id="142badfb-262d-8055-87fa-f566b023a245" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#124badfb-262d-802f-8d78-f96c3e2f4527"><span style="border-bottom:0.05em solid">1.- Análisis previo</span></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#124badfb-262d-8034-874b-d588f9502437"><span style="border-bottom:0.05em solid">1.1.- Especificaciones y requerimientos</span></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#124badfb-262d-8045-83b4-fce1f2d86df8"><span style="border-bottom:0.05em solid">1.2.- Supuestos semánticos</span></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#124badfb-262d-809f-a68d-d77deea5fb05"><span style="border-bottom:0.05em solid">2.- Modelo lógico</span></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#124badfb-262d-800e-ae82-fa5c9e3b4f15"><span style="border-bottom:0.05em solid">3.- Modelo relacional</span></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#124badfb-262d-80be-b94a-e7db3ab3c309"><span style="border-bottom:0.05em solid">4.- Modelo físico</span></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#124badfb-262d-8089-a911-dec79b151e0f"><span style="border-bottom:0.05em solid">5.- Script</span></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#142badfb-262d-8030-b512-d500166b8173"><span style="border-bottom:0.05em solid">Backup de nuestra base de datos</span></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#124badfb-262d-804b-a1e4-cf9c66c4bc7d">Instalación base de datos de ejemplo</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#143badfb-262d-8094-ac4e-d1ab885a3a6d"><span style="border-bottom:0.05em solid">Restore Backup desde SSMS</span></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#143badfb-262d-801f-bcde-d5510b1371b1"><span style="border-bottom:0.05em solid">Restore desde script</span></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#143badfb-262d-80ae-8b31-eae41b29b036"><span style="border-bottom:0.05em solid">Restore desde Powershell</span></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#143badfb-262d-8093-a5bc-e078b14c7790"><strong><span style="border-bottom:0.05em solid">Restore con attach</span></strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#143badfb-262d-8069-8e30-f53ded2a8b02"><span style="border-bottom:0.05em solid">6.- Bases de datos contenidas</span></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#161badfb-262d-80a4-a8f6-ecb162bd2904"><span style="border-bottom:0.05em solid">7.- Planes de mantenimiento</span></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#176badfb-262d-80e4-9425-fc9c6742320d"><span style="border-bottom:0.05em solid">8. BLOB (Binary Large Object)</span></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1bebadfb-262d-808b-81bd-c6c40db6ccb3"><strong>Opciones para BLOBs (Binary Large Objects) en SQL Server</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#176badfb-262d-808d-8d03-c8e385a90fad">NTFS (Carpetas del sistema operativo)</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#176badfb-262d-80f8-8f92-e48990ae5e6f">FILESTREAM</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#177badfb-262d-8084-902b-ecc7a4aab47c">Otro ejemplo FILESTREAM</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#176badfb-262d-8075-817a-f1a094358171">FILETABLES </a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#176badfb-262d-80ec-bffe-fa8a49241c62"><span style="border-bottom:0.05em solid">POWERBI</span></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#188badfb-262d-80eb-9110-c0bdd5350a81">9.- Particiones</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1acbadfb-262d-8097-b162-ca4bf051f632">SPLIT</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1acbadfb-262d-8093-9101-f25c7006dd31">MERGE</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1acbadfb-262d-80dc-8fce-e41b32bab716">SWITCH</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1acbadfb-262d-8001-a8e5-e75422ebb53b">TRUNCATE</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1acbadfb-262d-8059-b7e8-c88159c01600">REPASO CREAR PARTICIÓN</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#1acbadfb-262d-8079-9a80-e85094c0cd0d">1.- Creamos los fliesgroups para cada partición.</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#1acbadfb-262d-803d-bcc4-e3eb42549ec1">2.- Creamos archivos y les vinculamos los filesgroups.</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#1acbadfb-262d-8048-8d28-f1bd84f28f37">3.- Creamos la función de partición.</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#1acbadfb-262d-802a-8c02-e55778125940">4.- Creamos el esquema de la partición.</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#1acbadfb-262d-8073-8766-dc8c8c35945e">5.- Creamos la tabla e introducimos datos.</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1acbadfb-262d-8022-a5cf-e859da4a1dc8">Otro ejemplo Particiones (integer)</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1acbadfb-262d-8013-afb0-c79d41c0ef95">10.- Tablas temporales versión sistema</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1bebadfb-262d-80ea-be27-d18cbee02d67"><span style="border-bottom:0.05em solid">AS OF</span></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1bebadfb-262d-8032-a564-e2ad81113914"><span style="border-bottom:0.05em solid">FROM</span></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1bebadfb-262d-8079-b54e-d5783492a614"><span style="border-bottom:0.05em solid">BETWEEN</span></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1bebadfb-262d-803f-a03b-efa87e27dfad"><span style="border-bottom:0.05em solid">CONTAINED IN</span></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1bebadfb-262d-8055-ae6f-fc1b51eca1f4"><span style="border-bottom:0.05em solid">Limitaciones</span></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1acbadfb-262d-8061-a2b2-c4c7656cb0dd">11.- Tablas en memoria</a></div></nav><h1 id="124badfb-262d-802f-8d78-f96c3e2f4527" class=""><span style="border-bottom:0.05em solid">1.- Análisis previo</span></h1><p id="124badfb-262d-80b4-ab53-e25d2936ad05" class="">La autoescuela Fernando Wirtz nos pide que implementemos una base de datos para gestionar desde los contratos y nóminas de sus trabajadores, sus vehículos, sus clientes y todas las clases teóricas y prácticas que estos realizan.</p><p id="124badfb-262d-806c-8352-dafc1d40ea31" class="">Las condiciones que se nos piden es que se pueda distinguir entre clases teóricas o prácticas, que se pueda ver que vehículo ha usado cada profesor y cada alumno para cada práctica y que puedan acceder a todos los datos de los trabajadores, desde la gestión de nóminas hasta las clases que imparten. Además, quieren que se reflejen también los exámenes que hace cada alumno.</p><h2 id="124badfb-262d-8034-874b-d588f9502437" class=""><span style="border-bottom:0.05em solid">1.1.- Especificaciones y requerimientos</span></h2><p id="124badfb-262d-802d-bc49-fc6340b17504" class="">De los trabajadores interesa conocer todos sus datos personales y además sus datos laborales (Nóminas, contrato, horarios, salario, antigüedad…). También debemos conocer las prácticas que realizan y con que vehículo las hacen ya que no tienen un vehículo asignado y va adjudicándosele uno para cada práctica que imparten, además debemos tener en cuenta si son profesores de teoría o de práctica.</p><p id="124badfb-262d-804f-9ff7-c9d1fd875a82" class="">Tendremos que reflejar también las clases teóricas y prácticas que imparte cada uno.</p><p id="124badfb-262d-80a7-98a4-fa2bae4c7e46" class="">De los alumnos/clientes debemos de reflejar también sus datos personales, las prácticas que realizan y con que profesor y vehículo las realizan. También los exámenes a los que se presentan.</p><p id="124badfb-262d-8072-816a-d39748601148" class="">Debemos llevar un control de los vehículos, tanto de sus datos y fecha de adquisición como de las prácticas que hacen y que profesores y alumnos los usan.</p><p id="124badfb-262d-807b-b232-c05ac6574dbc" class="">
+</p><h2 id="124badfb-262d-8045-83b4-fce1f2d86df8" class=""><span style="border-bottom:0.05em solid">1.2.- Supuestos semánticos</span></h2><p id="124badfb-262d-802f-80ef-eac9a8970c20" class="">Un profesor puede impartir clases teóricas o clases prácticas pero no los dos tipos de clases. Cada profesor tendrá un solo contrato (va a interesar solo el contrato en vigor) pero podrá tener cero, una o varias nóminas.</p><p id="124badfb-262d-8065-8ae6-f9e71c48a5fb" class="">Un alumno podrá recibir clases teóricas y prácticas a la vez, ya que puede estar pendiente de examen teórico e ir empezando a hacer prácticas. Además un alumno podrá presentarse a varios exámenes pero cada examen solo tendrá un alumno (aunque en el aula o en en vehículo del examen practico concurran mas alumnos) puesto que el examen es algo personal.</p><p id="124badfb-262d-80ed-8eda-f47dbfa95c61" class="">Un vehículo podrá realizar varias prácticas pero no podrá realizarse una práctica sin un vehículo, a su vez, en un examen podrá utilizarse un vehículo y un vehículo podrá ser utilizado en un examen. </p><p id="124badfb-262d-804a-9f9c-fd2c8275c95c" class="">
+</p><h1 id="124badfb-262d-809f-a68d-d77deea5fb05" class=""><span style="border-bottom:0.05em solid">2.- Modelo lógico</span></h1><p id="124badfb-262d-80bf-953b-d3f4f7b2112e" class="">Hemos optado por una especialización con el tipo de profesor, ya que cada profesor imparte clases distintas y un profesor de prácticas no podrá impartir clases teóricas y viceversa, además de esta manera asignamos a cada practica y teoría un profesor de ese departamento. Sin embargo, pensamos en hacer lo mismo con el tipo de examen (teórico o práctico) pero finalmente no lo hemos hecho, ya que la única diferencia entre un tipo de examen y otro es que lleva vinculado un vehículo y esto lo hemos solucionado estableciendo una relación 1-N donde un examen podrá no tener vehículo asignado pero un vehículo podrá tener asignados varios examenes o ninguno.</p><p id="14bbadfb-262d-8087-bab3-d01834a3136a" class="">Hemos añadido también los gastos que cada cliente hace en la autoescuela a partir de una tabla que contiene los precios de cada producto.</p><p id="124badfb-262d-80c7-bd5d-d70d6cc7ded6" class="">Al aplicar la normalización, hemos extraido las tablas nómina y contrato de la tabla trabajador y de la misma manera hemos extraido las tablas localidad, provincia y autonomía de la tabla trabajador y cliente para evitar la dependencia de otro atributo de la misma tabla.</p><figure id="143badfb-262d-8003-a0ed-f4335721b29c" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/028a0920-7fa9-4261-8717-cc2d10cd6ee4.png"><img style="width:1008px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/028a0920-7fa9-4261-8717-cc2d10cd6ee4.png"/></a></figure><h1 id="124badfb-262d-800e-ae82-fa5c9e3b4f15" class=""><span style="border-bottom:0.05em solid">3.- Modelo relacional</span></h1><figure id="124badfb-262d-8047-9289-ec5256ba4c25" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/7e8efd04-bb49-46aa-8bca-df34a1e54a02.png"><img style="width:472.11391018619935px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/7e8efd04-bb49-46aa-8bca-df34a1e54a02.png"/></a></figure><p id="124badfb-262d-803a-b0aa-ca4e4ff282f5" class="">
+</p><h1 id="124badfb-262d-80be-b94a-e7db3ab3c309" class=""><span style="border-bottom:0.05em solid">4.- Modelo físico</span></h1><p id="142badfb-262d-805d-b7f9-ea3acee07837" class="">Una vez hayamos hecho el modelado lógico en Datamodeler y lo hayamos pasado a relacional, generamos el archivo .ddl que contendrá el script que podremos trasladar a SQL Server para implementar allí nuestra base de datos. Luego abrimos SQL Server y abrimos el archivo .ddl, antes de ejecutar el código, añadiremos al inicio de este las sentencias para crear la base de datos y activarla:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="142badfb-262d-8015-807d-e7e2b05f40ae" class="code"><code class="language-SQL">DROP DATABASE IF EXISTS AutoescuelaWirtz;
+GO
+CREATE DATABASE AutoescuelaWirtz;
+GO
+Use AutoescuelaWirtz;
+GO</code></pre><p id="142badfb-262d-8098-a559-e598ca2be36b" class="">Ahora ya solo nos queda ejecutar la qwery y se nos creará la base de datos y las tablas. </p><p id="142badfb-262d-8034-b432-caa1631ecce5" class="">De aquí sacamos el modelo físico desde la propia base de datos y el apartado “Database Diagrams”, botón derecho y “New Database Diagram”, luego seleccionamos todas las tablas y se generará el siguiente esquema físico:</p><p id="14bbadfb-262d-8064-b523-e80c993151ab" class="">
+</p><figure id="14bbadfb-262d-802b-82e0-c8dbc46f790e"><div class="source"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Modelado_fisico.pdf">https://prod-files-secure.s3.us-west-2.amazonaws.com/a8d14bb1-8a2d-4184-8380-1227d7b2836e/d0f068d2-9d69-46b2-86c1-ab2c2a7a4645/Modelado_fisico.pdf</a></div></figure><p id="124badfb-262d-8095-ba0e-ea1f4eea3743" class="">
+</p><h1 id="124badfb-262d-8089-a911-dec79b151e0f" class=""><span style="border-bottom:0.05em solid">5.- Script</span></h1><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="124badfb-262d-8083-bed9-f536d358b1e3" class="code"><code class="language-SQL">
+
+CREATE DATABASE AutoescuelaWirtz;
+GO 
+
+USE AutoescuelaWirtz;
+GO
+
+CREATE TABLE autonomia (
+    cod_autonomia INTEGER NOT NULL,
+    n_autonomia   VARCHAR(30)
+);
+
+ALTER TABLE autonomia ADD CONSTRAINT autonomia_pk PRIMARY KEY ( cod_autonomia );
+
+CREATE TABLE cliente (
+    dni_cliente             VARCHAR(10) NOT NULL,
+    n_cliente               VARCHAR(50),
+    apel1_cliente           VARCHAR(50),
+    apel2_cliente           VARCHAR(50),
+    dir_cliente             VARCHAR(100),
+    email_cliente           VARCHAR(50),
+    telf_cliente            VARCHAR(15),
+    localidad_cod_localidad INTEGER NOT NULL
+);
+
+ALTER TABLE cliente ADD CONSTRAINT cliente_pk PRIMARY KEY ( dni_cliente );
+
+CREATE TABLE contrato (
+    id_contrato                 INTEGER NOT NULL,
+    cargo                       VARCHAR(25),
+    t_contrato                  VARCHAR(25),
+    t_jornada                   VARCHAR(25),
+    sueldo                      DECIMAL(12, 2),
+    antiguedad                  VARCHAR(12),
+    profesor_profesor_dni_profe VARCHAR(12) NOT NULL
+);
+
+ALTER TABLE contrato ADD CONSTRAINT contrato_pk PRIMARY KEY ( id_contrato );
+
+ALTER TABLE contrato ADD CONSTRAINT contrato_profesor_profesor_dni_profe_un UNIQUE ( profesor_profesor_dni_profe );
+
+CREATE TABLE examen (
+    id_examen            INTEGER NOT NULL,
+    f_examen             DATE,
+    tipo_examen          VARCHAR(10),
+    tipo_carnet          VARCHAR(8),
+    cliente_dni_cliente  VARCHAR(10) NOT NULL,
+    matricula_vehiculo   VARCHAR(10) NOT NULL
+);
+
+ALTER TABLE examen ADD CONSTRAINT examen_pk PRIMARY KEY ( id_examen );
+
+CREATE TABLE localidad (
+    cod_localidad           INTEGER NOT NULL,
+    n_localidad             VARCHAR(20),
+    provincia_cod_provincia INTEGER NOT NULL
+);
+
+ALTER TABLE localidad ADD CONSTRAINT localidad_pk PRIMARY KEY ( cod_localidad );
+
+CREATE TABLE nomina (
+    id_nomina            INTEGER NOT NULL,
+    department           VARCHAR(12),
+    nivel                VARCHAR(5),
+    h_extra              INTEGER,
+    n_cuenta             VARCHAR(30),
+    contrato_id_contrato INTEGER NOT NULL
+);
+
+ALTER TABLE nomina ADD CONSTRAINT nomina_pk PRIMARY KEY ( id_nomina );
+
+CREATE TABLE pagos (
+    id_pago             INTEGER NOT NULL,
+    fechapago           DATE,
+    cliente_dni_cliente VARCHAR(10) NOT NULL,
+    precios_id_precio   INTEGER NOT NULL
+);
+
+ALTER TABLE pagos ADD CONSTRAINT pagos_pk PRIMARY KEY ( id_pago );
+
+CREATE TABLE practica (
+    id_practica                        INTEGER NOT NULL,
+    f_practica                         DATE,
+    estado_practica                    VARCHAR(12),
+    cliente_dni_cliente                VARCHAR(10) NOT NULL,
+    profe_practicas_profesor_dni_profe VARCHAR(12) NOT NULL,
+    matricula_vehiculo                 VARCHAR(10) NOT NULL
+);
+
+ALTER TABLE practica ADD CONSTRAINT practica_pk PRIMARY KEY ( id_practica );
+
+CREATE TABLE precios (
+    id_precio INTEGER NOT NULL,
+    tipo      VARCHAR(30),
+    carnet    VARCHAR(6),
+    precio    DECIMAL(8, 2)
+);
+
+ALTER TABLE precios ADD CONSTRAINT precios_pk PRIMARY KEY ( id_precio );
+
+CREATE TABLE profe_practicas (
+    profesor_profesor_dni_profe VARCHAR(12) NOT NULL,
+    titulacion                  VARCHAR(12),
+    horas_practicas             INTEGER,
+    dni_profesor                VARCHAR(12) NOT NULL
+);
+
+ALTER TABLE profe_practicas ADD CONSTRAINT profe_practicas_pkv1 PRIMARY KEY ( dni_profesor );
+
+ALTER TABLE profe_practicas ADD CONSTRAINT profe_practicas_pk UNIQUE ( profesor_profesor_dni_profe );
+
+CREATE TABLE profe_teorica (
+    profesor_profesor_dni_profe VARCHAR(12) NOT NULL,
+    clase                       VARCHAR(8),
+    horas_clase                 INTEGER,
+    dni_profesor                VARCHAR(12) NOT NULL
+);
+
+ALTER TABLE profe_teorica ADD CONSTRAINT profe_teorica_pkv1 PRIMARY KEY ( dni_profesor );
+
+ALTER TABLE profe_teorica ADD CONSTRAINT profe_teorica_pk UNIQUE ( profesor_profesor_dni_profe );
+
+CREATE TABLE profesor (
+    dni_profesor            VARCHAR(12) NOT NULL,
+    n_profesor              VARCHAR(30),
+    apell1_profe            VARCHAR(15),
+    apell2_profe            VARCHAR(20),
+    dir_profe               VARCHAR(100),
+    email_profe             VARCHAR(50),
+    telf_profe              VARCHAR(12),
+    localidad_cod_localidad INTEGER NOT NULL
+);
+
+ALTER TABLE profesor ADD CONSTRAINT profesor_pk PRIMARY KEY ( dni_profesor );
+
+CREATE TABLE provincia (
+    cod_provincia           INTEGER NOT NULL,
+    n_provincia             VARCHAR(50),
+    autonomia_cod_autonomia INTEGER NOT NULL
+);
+
+ALTER TABLE provincia ADD CONSTRAINT provincia_pk PRIMARY KEY ( cod_provincia );
+
+CREATE TABLE teorica (
+    id_teorica                       INTEGER NOT NULL,
+    f_teorica                        DATE,
+    aula                             INTEGER,
+    cliente_dni_cliente              VARCHAR(10) NOT NULL,
+    profe_teorica_profesor_dni_profe VARCHAR(12) NOT NULL
+);
+
+ALTER TABLE teorica ADD CONSTRAINT teorica_pk PRIMARY KEY ( id_teorica );
+
+CREATE TABLE vehiculo (
+    matricula_vehiculo VARCHAR(10) NOT NULL PRIMARY KEY,
+    marca              VARCHAR(10),
+    modelo             VARCHAR(12),
+    f_compra           DATE,
+);
+
+ALTER TABLE cliente
+    ADD CONSTRAINT cliente_localidad_fk FOREIGN KEY ( localidad_cod_localidad )
+        REFERENCES localidad ( cod_localidad );
+
+ALTER TABLE contrato
+    ADD CONSTRAINT contrato_profesor_fk FOREIGN KEY ( profesor_profesor_dni_profe )
+        REFERENCES profesor ( dni_profesor );
+
+ALTER TABLE examen
+    ADD CONSTRAINT examen_cliente_fk FOREIGN KEY ( cliente_dni_cliente )
+        REFERENCES cliente ( dni_cliente );
+
+ALTER TABLE examen
+    ADD CONSTRAINT examen_vehiculo_fk FOREIGN KEY ( matricula_vehiculo )
+        REFERENCES vehiculo ( matricula_vehiculo );
+
+ALTER TABLE localidad
+    ADD CONSTRAINT localidad_provincia_fk FOREIGN KEY ( provincia_cod_provincia )
+        REFERENCES provincia ( cod_provincia );
+
+ALTER TABLE nomina
+    ADD CONSTRAINT nomina_contrato_fk FOREIGN KEY ( contrato_id_contrato )
+        REFERENCES contrato ( id_contrato );
+
+ALTER TABLE pagos
+    ADD CONSTRAINT pagos_cliente_fk FOREIGN KEY ( cliente_dni_cliente )
+        REFERENCES cliente ( dni_cliente );
+
+ALTER TABLE pagos
+    ADD CONSTRAINT pagos_precios_fk FOREIGN KEY ( precios_id_precio )
+        REFERENCES precios ( id_precio );
+
+ALTER TABLE practica
+    ADD CONSTRAINT practica_cliente_fk FOREIGN KEY ( cliente_dni_cliente )
+        REFERENCES cliente ( dni_cliente );
+
+ALTER TABLE practica
+    ADD CONSTRAINT practica_profe_practicas_fk FOREIGN KEY ( profe_practicas_profesor_dni_profe )
+        REFERENCES profe_practicas ( profesor_profesor_dni_profe );
+
+ALTER TABLE practica
+    ADD CONSTRAINT practica_vehiculo_fk FOREIGN KEY ( matricula_vehiculo )
+        REFERENCES vehiculo ( matricula_vehiculo );
+
+ALTER TABLE profe_practicas
+    ADD CONSTRAINT profe_practicas_profesor_fk FOREIGN KEY ( profesor_profesor_dni_profe )
+        REFERENCES profesor ( dni_profesor );
+
+ALTER TABLE profe_practicas
+    ADD CONSTRAINT profe_practicas_profesor_fkv2 FOREIGN KEY ( dni_profesor )
+        REFERENCES profesor ( dni_profesor );
+
+ALTER TABLE profe_teorica
+    ADD CONSTRAINT profe_teorica_profesor_fk FOREIGN KEY ( profesor_profesor_dni_profe )
+        REFERENCES profesor ( dni_profesor );
+
+ALTER TABLE profe_teorica
+    ADD CONSTRAINT profe_teorica_profesor_fkv2 FOREIGN KEY ( dni_profesor )
+        REFERENCES profesor ( dni_profesor );
+
+ALTER TABLE profesor
+    ADD CONSTRAINT profesor_localidad_fk FOREIGN KEY ( localidad_cod_localidad )
+        REFERENCES localidad ( cod_localidad );
+
+ALTER TABLE provincia
+    ADD CONSTRAINT provincia_autonomia_fk FOREIGN KEY ( autonomia_cod_autonomia )
+        REFERENCES autonomia ( cod_autonomia );
+
+ALTER TABLE teorica
+    ADD CONSTRAINT teorica_cliente_fk FOREIGN KEY ( cliente_dni_cliente )
+        REFERENCES cliente ( dni_cliente );
+
+ALTER TABLE teorica
+    ADD CONSTRAINT teorica_profe_teorica_fk FOREIGN KEY ( profe_teorica_profesor_dni_profe )
+        REFERENCES profe_teorica ( profesor_profesor_dni_profe );</code></pre><p id="143badfb-262d-80c4-883d-f227c3df8370" class="">
+</p><h1 id="142badfb-262d-8030-b512-d500166b8173" class=""><span style="border-bottom:0.05em solid">Backup de nuestra base de datos</span></h1><p id="143badfb-262d-8074-a8eb-d85185eb5579" class="">Para finalizar, realizaremos un backup de nuestra base de datos desde SSMS para guardar una copia por si surgiese cualquier problema mientras trabajamos con ella. Para ello, desde SSMS, en el navegador de la barra lateral vamos a “Tasks→Back up…”, aquí seleccionamos el directorio donde queremos que se guarde el backup y presionamos aceptar.</p><figure id="143badfb-262d-80df-aa8f-d2d01f9f7626" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2024-11-19_a_las_17.01.48.png"><img style="width:1072.984375px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2024-11-19_a_las_17.01.48.png"/></a></figure><p id="143badfb-262d-8049-8cc7-c999eb14bdec" class="">
+</p><figure id="143badfb-262d-8060-9e29-d325fae42083" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2024-11-19_a_las_17.02.48.png"><img style="width:1072.9921875px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2024-11-19_a_las_17.02.48.png"/></a></figure><p id="143badfb-262d-802e-8b6e-c5080e82a622" class="">
+</p><h1 id="124badfb-262d-804b-a1e4-cf9c66c4bc7d" class="">Instalación base de datos de ejemplo</h1><p id="143badfb-262d-808e-998f-c36bac9003ba" class="">Existen muchas formas de instalar las bases de ejemplo, vamos a explicar varias de ellas. </p><h2 id="143badfb-262d-8094-ac4e-d1ab885a3a6d" class=""><span style="border-bottom:0.05em solid">Restore Backup desde SSMS</span></h2><p id="143badfb-262d-80f3-978e-ca5e579bb974" class="">Comenzamos por realizar un backup directamente desde SSMS, una vez hayamos descargado el archivo .bak, vamos a “Databases” en la barra de navegación laterar, presionamos con el boton derecho y seleccionamos “Restore backup”, seleccionamos “Device”, buscamos nuestro archivo y presionamos en “OK” para restaurar.</p><figure id="143badfb-262d-80f7-9af2-e15ccca13915" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2024-11-19_a_las_15.26.18.png"><img style="width:1072.984375px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2024-11-19_a_las_15.26.18.png"/></a></figure><figure id="143badfb-262d-806a-b829-cadd39f1d38a" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2024-11-19_a_las_15.30.09.png"><img style="width:1072.984375px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2024-11-19_a_las_15.30.09.png"/></a></figure><p id="143badfb-262d-80c8-b83c-d8e532e0f641" class="">
+</p><h2 id="143badfb-262d-801f-bcde-d5510b1371b1" class=""><span style="border-bottom:0.05em solid">Restore desde script</span></h2><p id="143badfb-262d-8025-ab7c-f4d222007a63" class="">Otra opción es ejecutar el script, del mismo modo que hacemos al pasar de Datamodeler a SSMS. Para ello podemos descargar el script desde la web oficial y una vez lo tengamos, ejecutarlo desde SSMS. Para ello en SSMS presionamos en “File→Open→File…”, seleccionamos el archivo que hemos descargado con la qwery y una vez abierto lo ejecutamos</p><figure id="143badfb-262d-8063-89fd-d87a033c68d1" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2024-11-19_a_las_15.37.20.png"><img style="width:1072.984375px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2024-11-19_a_las_15.37.20.png"/></a></figure><figure id="143badfb-262d-80fa-9cee-c4a5b6c6cf15" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2024-11-19_a_las_15.40.28.png"><img style="width:1072.984375px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2024-11-19_a_las_15.40.28.png"/></a></figure><p id="143badfb-262d-8013-8612-ea38ce0bad0b" class="">
+</p><h2 id="143badfb-262d-80ae-8b31-eae41b29b036" class=""><span style="border-bottom:0.05em solid">Restore desde Powershell</span></h2><p id="143badfb-262d-8037-b07c-eb88603c676a" class="">Ya que hemos dado los principales comandos de Powershell, vamos aprovechar para repasar como hacer un restore y así instalar de paso una de las bases de datos de ejemplo. Accedemos a Powershel y ejecutamos:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="143badfb-262d-8060-b4ed-db91557b6b09" class="code"><code class="language-Bash">Restore-Sqldatabase -Serverinstance &quot;localhost&quot; -Database Adventureworks -Backupfile &quot;C:\transactsql\backups\AdventureWorks2022.bak&quot; -replacedatabase</code></pre><p id="143badfb-262d-8043-b988-f4661312932d" class="">*Debemos acordarnos de hacer un “Refresh” en la barra de navegación para que nos aparezcan las bases de datos que instalemos.</p><p id="143badfb-262d-80db-a576-c092c16a092b" class="">También estaría la opción de hacerlo usando el comando <code>invoke-Sqlcmd </code> lo que nos permite ejecutar instancias de SQL en Powershell directamente:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="143badfb-262d-80f1-bd59-db1eb0fcf930" class="code"><code class="language-Bash">
+Invoke-Sqlcmd -Serverinstance localhost -TrustServerCertificate -Query &quot;Restore database AdventureWorks From disk = &#x27;C:\transactsql\backups\AdventureWorks2022.bak&#x27; With replace&quot;</code></pre><p id="143badfb-262d-80ab-826e-e88378862624" class="">
+</p><h2 id="143badfb-262d-8093-a5bc-e078b14c7790" class=""><strong><span style="border-bottom:0.05em solid">Restore con attach</span></strong></h2><p id="143badfb-262d-80f0-8d6d-f5660dfab0e3" class="">Para instalar una base de datos usando ATTACH, usaremos los archivos .mdf y .ldf. En el panel de navegación lateral, presionamos con el boton derecho encima de databases y luego en attach. Aquí buscaremos nuestros archivos .mdf y .ldf y presionaresmos aceptar para finalizar.</p><p id="143badfb-262d-8033-95e9-e5ed2146dff6" class="">A veces este método puede dar errores, uno de los mas comunes es que SSMS no tenga permisos suficientes para acceder a la carpeta donde se encuentran los archivos.</p><figure id="143badfb-262d-8087-b599-d01f8d53ce11" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2024-11-19_a_las_16.58.07.png"><img style="width:444.9921875px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2024-11-19_a_las_16.58.07.png"/></a></figure><p id="143badfb-262d-8099-b2ab-fd7153de9347" class="">
+</p><h1 id="143badfb-262d-8069-8e30-f53ded2a8b02" class=""><span style="border-bottom:0.05em solid">6.- Bases de datos contenidas</span></h1><p id="161badfb-262d-8007-bc20-c517bc7262bd" class="">Son un tipo especial de bases de datos en sistemas como Microsoft SQL Server, diseñadas para ser lo más independientes posible del servidor que las aloja. Esto significa que su configuración y autenticación están almacenadas completamente dentro de la propia base de datos, en lugar de depender del servidor SQL.</p><p id="161badfb-262d-80a4-af4e-c281f22d6201" class="">Esto es ideal para bases de datos que deben ser migradas con frecuencia, además no es necesario mantener configuraciones a nivel servidor específicas para una base de datos.</p><p id="161badfb-262d-8073-8dbb-f7be0d69bb64" class="">Lo primero que haremos para crear/usar bases de datos contenidas es activar las opciones avanzadas y las bases de datos contenidas en SSMS.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="161badfb-262d-8049-9502-d3356fad5644" class="code"><code class="language-SQL">-- Activamos opciones avanzadas
+	EXEC sp_configure &#x27;show advanced options&#x27; 1
+	GO
+	
+-- Activamos BD contenidas
+	EXEC sp_configure &#x27;contained database authentication&#x27;, 1
+	GO</code></pre><p id="161badfb-262d-80a0-b715-c5101a63f950" class="">A la hora de crear una base de datos contenida, la única diferencia es que añadiremos los siguientes parámetros: </p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="161badfb-262d-8037-aeb9-c7e157e17413" class="code"><code class="language-SQL">-- Controlamos la existencia
+	DROP DATABASE IF EXISTS Contenida
+	GO
+-- Creamos la base de datos
+	CREATE DATABASE Contenida
+	CONTAINMENT=PARTIAL
+	GO</code></pre><p id="176badfb-262d-8038-beb6-e6b037aa3219" class="">Recordar que además de crear bases de datos contenidas, también es posible convertir una base de datos que ya tengamos creada a base de datos contenida, para ello simplemente activamos las opciones avanzadas igual que hemos hecho para crear bases de datos contenidas pero en vez de usar “CREATE”, ahora usaremos “ALTER” para modificar la que ya tenemos creada.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="176badfb-262d-8002-9f20-cbe58c2c7947" class="code"><code class="language-SQL">-- Activamos opciones avanzadas
+	EXEC sp_configure &#x27;show advanced options&#x27; 1
+	GO
+	
+-- Activamos BD contenidas
+	EXEC sp_configure &#x27;contained database authentication&#x27;, 1
+	GO
+-- Modificamos la base de datos para convertirla en contenida
+	ALTER DATABASE [NombreDeLaBaseDeDatos]
+	SET CONTAINMENT = PARTIAL;
+</code></pre><p id="176badfb-262d-809d-8ea0-e4db059979bf" class="">Debemos tener en cuenta que debemos migrar también los usuarios y configuraciones de  la base de datos, así como tener en cuenta las dependencias externas. Para migrar los usuarios, simplemente los crearemos de nuevo en la base de datos contenida y le asignaremos los permisos.</p><p id="1bfbadfb-262d-8079-a1ae-fb5f71e5ff9a" class="">
+</p><p id="1bfbadfb-262d-8007-ba7a-e4ce61329334" class="">Podemos comprobar si nuestra base de datos figura comocontenida con:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1bfbadfb-262d-8096-bdaa-f08fc987ad4a" class="code"><code class="language-SQL">SELECT name, containment
+FROM sys.databases
+WHERE name = &#x27;autoescuela&#x27;;</code></pre><hr id="1bfbadfb-262d-80c4-aaff-cd7afbf9cf80"/><h1 id="161badfb-262d-80a4-a8f6-ecb162bd2904" class=""><span style="border-bottom:0.05em solid">7.- Planes de mantenimiento</span></h1><p id="176badfb-262d-805c-988e-ed1aa7717a99" class="">El plan de mantenimiento es una herramienta que permite automatizar tareas administrativas rutinarias en una base de datos. Estas tareas están diseñadas para garantizar el correcto funcionamiento, rendimiento y fiabilidad del servidor SQL y sus bases de datos.Antes de nada debemos tener en cuenta que debe estar arrancado el <em><strong>SQL Agent.</strong></em></p><p id="176badfb-262d-80a8-82a9-c348bf9a4db7" class="">En la barra de navegación lateral vamos a “Management→Maintenance Plans” pulsamos botón derecho y “Maintenence Wizard”, se arrancará directamente el asistente.</p><figure id="176badfb-262d-80e5-a33a-ffcd748c3a24" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-09_a_las_13.17.45.png"><img style="width:1056px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-09_a_las_13.17.45.png"/></a></figure><p id="176badfb-262d-80f0-9884-de50529f49c1" class="">
+</p><p id="176badfb-262d-8096-af10-c6447c0defdf" class="">Le daremos un nombre al plan de mantenimiento y aunque se puede crear bajo demanda, en este caso vamos a crear una programación que es el caso más complejo.</p><figure id="176badfb-262d-80f4-b1f5-fc332505781b" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-09_a_las_13.19.27.png"><img style="width:444.9921875px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-09_a_las_13.19.27.png"/></a></figure><p id="176badfb-262d-80af-b4fa-c950410659cf" class="">
+</p><p id="176badfb-262d-8099-b56e-e78cc7706e23" class="">Al pinchar en “change” se nos depliegan las opciones de la programación, seleccionaremos recurrente y lo programaremos para que se ejecute todos los viernes al finalizar la jornada laboral, de esta manera todas las semanas al finalizar el viernes se ejecutará una copia de seguridad completa.</p><figure id="176badfb-262d-8021-b8ca-f4b7e60e4dcd" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-09_a_las_13.26.57.png"><img style="width:444.9921875px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-09_a_las_13.26.57.png"/></a></figure><p id="176badfb-262d-802b-8a6c-e0966335eb0e" class="">
+</p><figure id="176badfb-262d-8003-a7eb-f58f39d14735" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-09_a_las_13.27.10.png"><img style="width:444.9921875px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-09_a_las_13.27.10.png"/></a></figure><p id="176badfb-262d-8014-92f4-df376bcf6236" class="">
+</p><p id="176badfb-262d-805b-81df-facaea5eeb66" class="">Luego seleccionaremos las tareas a realizar, en este caso será una copia de seguridad completa.</p><figure id="176badfb-262d-802a-b7fc-fdc5e8299e9c" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-09_a_las_13.27.22.png"><img style="width:444.9921875px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-09_a_las_13.27.22.png"/></a></figure><p id="176badfb-262d-8088-88a2-d2e291fbc118" class="">
+</p><p id="176badfb-262d-8017-830f-e4e2ac8160ce" class="">También seleccionaremos las bases de datos a las que queremos que afecte el plan de mantenimiento (en este caso la copia de seguridad). Seleccionamos la base de datos de la autoescuela (la copia que tenemos de la principal para trabajar sobre ella).</p><figure id="176badfb-262d-80e0-ba33-c60ded549ee4" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-09_a_las_13.29.50.png"><img style="width:444.9921875px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-09_a_las_13.29.50.png"/></a></figure><p id="176badfb-262d-80ae-a329-d935b890961e" class="">
+</p><p id="176badfb-262d-8021-a59e-fd3f8639d8a2" class="">Seleccionamos donde queremos que se guarde el reporte de la tarea.</p><figure id="176badfb-262d-8059-b683-f828be2ad49a" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-09_a_las_13.30.20.png"><img style="width:444.9921875px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-09_a_las_13.30.20.png"/></a></figure><p id="176badfb-262d-8091-a47f-d8b92bf241dd" class="">
+</p><p id="176badfb-262d-802a-b28b-e94711f78d07" class="">Ya solo queda finalizar y quedará configurado nuestro plan de mantenimiento.</p><figure id="176badfb-262d-8080-a844-ce4b5c9c2be5" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-09_a_las_13.30.36.png"><img style="width:444.9921875px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-09_a_las_13.30.36.png"/></a></figure><p id="176badfb-262d-80ef-92f3-feb1134a4ab0" class="">
+</p><figure id="176badfb-262d-80d9-80c9-dd2d6e6391e3" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-09_a_las_13.31.23.png"><img style="width:768px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-09_a_las_13.31.23.png"/></a></figure><p id="176badfb-262d-80ec-8788-cffac5e3283f" class="">
+</p><p id="176badfb-262d-8097-928f-d2b990dee07b" class="">
+</p><figure id="176badfb-262d-80f2-b936-c80ce68fc5dd" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-09_a_las_13.31.49.png"><img style="width:382px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-09_a_las_13.31.49.png"/></a></figure><p id="176badfb-262d-80ac-ae11-f4fbaeba23f3" class="">
+</p><h1 id="176badfb-262d-80e4-9425-fc9c6742320d" class=""><span style="border-bottom:0.05em solid">8. BLOB (Binary Large Object)</span></h1><p id="188badfb-262d-80fc-8378-f51b59867e78" class="">Es un tipo de dato que se utiliza en bases de datos para almacenar grandes volúmenes de información binaria, como archivos, imágenes, videos, audio o cualquier otro tipo de datos no estructurados.</p><h3 id="1bebadfb-262d-808b-81bd-c6c40db6ccb3" class=""><strong>Opciones para BLOBs (Binary Large Objects) en SQL Server</strong></h3><table id="1bebadfb-262d-80f5-b374-e9937cf428cb" class="simple-table"><tbody><tr id="1bebadfb-262d-80d9-a3b4-ff24a61013fd"><td id="FYY`" class=""><strong>Tecnología</strong></td><td id="oh;T" class=""><strong>Descripción</strong></td><td id="fXaN" class=""><strong>Ejemplo</strong></td><td id="vyb]" class=""><strong>Cuándo usar</strong></td></tr><tr id="1bebadfb-262d-8094-87c1-f8712dce9ec6"><td id="FYY`" class=""><strong>NTFS (Sistema de archivos)</strong></td><td id="oh;T" class="">Almacenar archivos directamente en el sistema operativo, con rutas guardadas en la base de datos.</td><td id="fXaN" class="">Guardar imágenes en <code>C:\Archivos\</code> y almacenar la ruta <code>C:\Archivos\foto.jpg</code> en una columna VARCHAR.</td><td id="vyb]" class="">- Archivos muy grandes (&gt;2 GB).- Acceso frecuente fuera de SQL (ej: aplicaciones externas).</td></tr><tr id="1bebadfb-262d-8056-a0a0-d3f74054bab4"><td id="FYY`" class=""><strong>FILESTREAM</strong></td><td id="oh;T" class="">Combina NTFS con SQL Server: los BLOBs se almacenan en archivos del sistema, pero se gestionan transaccionalmente desde la base de datos.</td><td id="fXaN" class=""><code>sql CREATE TABLE Documentos ( ID UNIQUEIDENTIFIER ROWGUIDCOL, Archivo VARBINARY(MAX) FILESTREAM );</code></td><td id="vyb]" class="">- BLOBs entre 1 MB y 2 GB.- Necesidad de transacciones ACID.- Acceso mixto (SQL + sistema de archivos).</td></tr><tr id="1bebadfb-262d-8045-9bf7-f2daa9358a71"><td id="FYY`" class=""><strong>FILETABLE</strong></td><td id="oh;T" class="">Extensión de FILESTREAM que permite acceder a los archivos como si fueran una tabla, con jerarquía de carpetas.</td><td id="fXaN" class=""><code>sql CREATE FILETABLE DocumentosFileTable WITH ( FILETABLE_DIRECTORY = &#x27;Documentos&#x27; );</code></td><td id="vyb]" class="">- Sistemas legacy que usan carpetas.- Aplicaciones que requieren estructura de archivos jerárquica.</td></tr></tbody></table><p id="1bebadfb-262d-804e-be71-c1f57915de42" class=""><strong><span style="border-bottom:0.05em solid">FILEGROUPS</span></strong></p><p id="1bebadfb-262d-805e-bb61-e4c2bacb8f08" class="">Crear un <strong>filegroup</strong> en SQL Server permite organizar y distribuir los archivos de la base de datos en diferentes ubicaciones físicas, lo que mejora la administración del almacenamiento, optimiza el rendimiento, y facilita el respaldo y la recuperación de datos. Es especialmente útil cuando se trabaja con grandes volúmenes de datos o cuando se habilitan características como <strong>FILESTREAM</strong> o <strong>particionamiento</strong>.</p><p id="1bebadfb-262d-8033-91f8-ef63cb2edeb1" class="">En este caso crearemos un filegroup para organizar los archivos de foto que añadiremos usando FILESTREAM.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="177badfb-262d-80ef-9ab5-e3b3bd5b1ff4" class="code"><code class="language-SQL">-- Creamos el filegroup
+ALTER DATABASE [autoescuelap]
+ADD FILEGROUP [Fotoprofes] CONTAINS FILESTREAM;
+GO
+-- añadimos el fichero donde vamos a almacenar el filegroup (las imagenes)
+ALTER DATABASE [autoescuelap]
+	ADD FILE (NAME=&#x27;FOTOGRAFIAS&#x27;,
+	FILENAME = &#x27;C:\FOTOGRAFIAS&#x27;)
+	TO FILEGROUP [Fotoprofes]
+GO</code></pre><figure id="177badfb-262d-80cb-b2a6-f307aad3dc32" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-10_a_las_19.27.53.png"><img style="width:768px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-10_a_las_19.27.53.png"/></a></figure><p id="1bebadfb-262d-80a9-9335-ef76e03d18c1" class="">
+</p><p id="1bebadfb-262d-80bd-a224-de0b1654ff89" class="">
+</p><h2 id="176badfb-262d-808d-8d03-c8e385a90fad" class="">NTFS (Carpetas del sistema operativo)</h2><p id="176badfb-262d-8088-a057-d54ac57d5902" class="">Lo primero que haremos será activar en el archivo de configuración el filestream access.</p><p id="176badfb-262d-808f-b715-d0146cbca0ff" class="">Tenemos las siguientes opciones: “EXEC sp_configure filestream_access_level” añadiendo las siguientes posibilidades:<div class="indented"><ul id="176badfb-262d-803a-8bce-e05b6060201d" class="bulleted-list"><li style="list-style-type:disc">0 = Deshabilitado. (valor por defecto).</li></ul><ul id="176badfb-262d-805e-a07c-cc1b490ca766" class="bulleted-list"><li style="list-style-type:disc">1 = Habilitado solo para acceso de T-SQL.</li></ul><ul id="176badfb-262d-8000-a71b-ede83cbf54db" class="bulleted-list"><li style="list-style-type:disc">2 = Habilitado para T-SQL y acceso local al sistema de ficheros.</li></ul><ul id="176badfb-262d-804e-a73c-d2dfa9ef083d" class="bulleted-list"><li style="list-style-type:disc">3 = Habilitado para T-SQL, acceso local y remoto al sistema de ficheros.</li></ul><ul id="1bebadfb-262d-8034-984b-e27daaad8066" class="bulleted-list"><li style="list-style-type:disc"></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1bebadfb-262d-80ca-91b9-daf875173c43" class="code"><code class="language-SQL">EXEC sp_configure &#x27;filestream_access_level&#x27;, 2; 
+RECONFIGURE;
+GO</code></pre><p id="176badfb-262d-800d-b514-ee1af1c4eb5d" class="">Para configurarlo, aunque podemos hacerlo mediante comandos, es mejor hacerlo desde el SQLServer configuration porque por comandos a veces da fallos. De manera que iremos a cortana y escribiremos SQL server y lo ejecutaremos.</p><p id="176badfb-262d-8056-812e-ea2a2e97fb29" class="">
+</p><figure id="176badfb-262d-80f9-ba1a-d0145bca3680" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-09_a_las_23.02.21.png"><img style="width:1408.96875px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-09_a_las_23.02.21.png"/></a></figure><p id="176badfb-262d-8003-8f39-c70bb2e423dd" class="">
+</p><p id="176badfb-262d-80a0-94e0-e9e4ca2fa080" class="">Una vez dentro, buscaremos “SQL Server Services→SQL Server (MSSQLSERVER)”, iremos a la pestaña FILESTREAM y marcaremos las dos casillas de FILESTREAM.</p><figure id="176badfb-262d-809b-bca9-c6b184a611d9" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-09_a_las_23.07.24.png"><img style="width:1408.96875px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-09_a_las_23.07.24.png"/></a></figure><blockquote id="176badfb-262d-808a-9983-e6f2be744480" class=""><mark class="highlight-orange_background">*Reiniciar el servicio para que coja la nueva configuración.</mark></blockquote></div></p><p id="177badfb-262d-808a-9482-eccc7f3624c6" class="">
+</p><p id="176badfb-262d-8054-96fe-c43e52fc1fb5" class="">Debemos recordar que para guardar este tipo de archivos, lo haremos en variables tipo VARBINARY(MAX).</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="177badfb-262d-80c8-8a82-f5ac9a4af7da" class="code"><code class="language-SQL">EXECUTE sp_configure &#x27;show advanced options&#x27;,1;</code></pre><p id="177badfb-262d-80d3-a847-fa7c104c7a5f" class="">Debemos crear una carpeta para almacenar los archivos, podemos hacerlo con <mark class="highlight-red">‘xp_cmdshell’</mark> pero debemos tener mucho cuidado porque con este comando, se permite ejecutar cualquier sentencia de la shell de windows y eso implica que cualquier persona que acceda a la base de datos podría ejecutar un format por ejemplo.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="177badfb-262d-80e3-9c34-d1432cd6ffc7" class="code"><code class="language-SQL">EXECUTE autoescuelap xp_cmdshell &#x27;mkdir c:\Fotos_profesores\&#x27;
+GO</code></pre><p id="177badfb-262d-809c-bea2-f8a4404bd598" class=""> Por este motivo, crearemos la carpeta por fuera de SSMS y añadiremos las fotos, en este caso serán las fotos de los profesores de la autoescuela.</p><figure id="177badfb-262d-8081-9f3d-ed8e84a599b6" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-10_a_las_16.18.32.png"><img style="width:528px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-10_a_las_16.18.32.png"/></a></figure><p id="177badfb-262d-803d-9306-e05610a9237f" class="">
+</p><p id="177badfb-262d-80d4-a5e3-d8499ff7e7bc" class="">Añadimos la columna “fotografía” a la tabla profesor, donde almacenaremos las fotografías.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="177badfb-262d-80e9-9cff-f31729485e94" class="code"><code class="language-SQL">ALTER TABLE profesor
+ADD fotografía VARBINARY(MAX),
+    extension NVARCHAR(10);
+GO;</code></pre><figure id="177badfb-262d-80ad-8bfa-c911ef774249" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-10_a_las_18.49.39.png"><img style="width:912px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-10_a_las_18.49.39.png"/></a></figure><p id="177badfb-262d-806f-ad1b-ed78872117ba" class="">
+</p><p id="177badfb-262d-80a3-902b-ebe1546bc9af" class="">Ahora insertamos los datos:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="177badfb-262d-8030-bf80-cdc9fc87dcfa" class="code"><code class="language-SQL">-- Insertamos fotografías
+UPDATE profesor
+SET fotografía = (SELECT BULKCOLUMN
+FROM OPENROWSET(BULK N&#x27;C:\Fotos_profesores\profesor1.JPG&#x27;, SINGLE_BLOB) AS archivo),
+extension = &#x27;JPG&#x27;
+WHERE profesor_DNI_profe = &#x27;10987654R&#x27;;
+GO
+
+UPDATE profesor
+SET fotografía = (SELECT BULKCOLUMN 
+                  FROM OPENROWSET(BULK N&#x27;C:\Fotos_profesores\profesor2.JPG&#x27;, SINGLE_BLOB) AS archivo),
+    extension = &#x27;JPG&#x27;
+WHERE profesor_DNI_profe = &#x27;09876543Q&#x27;;
+GO
+
+UPDATE profesor
+SET fotografía = (SELECT BULKCOLUMN 
+                  FROM OPENROWSET(BULK N&#x27;C:\Fotos_profesores\profesor3.JPG&#x27;, SINGLE_BLOB) AS archivo),
+    extension = &#x27;JPG&#x27;
+WHERE profesor_DNI_profe = &#x27;32109876T&#x27;;
+GO
+-- Comprobamos las inserciones
+SELECT profesor_N_profe, profesor_Apel1_profe, profesor_Apel2_profe, fotografía, extension FROM profesor;
+GO
+</code></pre><figure id="177badfb-262d-809e-bc70-e253c1ae1a91" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-10_a_las_18.56.36.png"><img style="width:720px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-10_a_las_18.56.36.png"/></a></figure><p id="177badfb-262d-80fe-9c7f-f26316c20f7a" class="">
+</p><h2 id="176badfb-262d-80f8-8f92-e48990ae5e6f" class="">FILESTREAM</h2><p id="177badfb-262d-8068-b579-da29a0d8c3d2" class="">Lo primero que haremos será activar filestream (si no lo hemos hecho en el configuration manager)</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="177badfb-262d-804a-9272-f58d48d2ed24" class="code"><code class="language-SQL">-- activamos FILESTREAM (si no lo hemos hecho en configuration manager)
+EXEC sp_configure filestream_access_level, 2
+RECONFIGURE
+GO</code></pre><p id="1bebadfb-262d-805b-ad0e-db7fa3153ef0" class="">Creamos un FILEGROUP que contenga Filestream</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1bebadfb-262d-80ba-941f-e7f2bf94f21b" class="code"><code class="language-SQL">ALTER DATABASE autoescuelaP
+ADD FILEGROUP fg_imagenes CONTAINS FILESTREAM
+GO</code></pre><p id="1bebadfb-262d-80c7-99ea-c819e198a17b" class="">Asociamos un archivo físico al FILEGROUP</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1bebadfb-262d-800b-b922-f9a5951d5f60" class="code"><code class="language-SQL">ALTER DATABASE AutoescuelaP
+	ADD FILE (NAME = &#x27;Imagenes_FS&#x27;,
+	FILENAME = &#x27;C:\DATA\Imagenes_FS&#x27;)
+	TO FILEGROUP fg_imagenes
+GO</code></pre><p id="1bebadfb-262d-807d-ad04-c63f7d08e115" class="">Comprobamos:</p><figure id="1bebadfb-262d-8027-a819-f5e62f16f595" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-22_a_las_20.15.42.png"><img style="width:1008px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-22_a_las_20.15.42.png"/></a></figure><p id="1bebadfb-262d-8049-a96a-ce281cdf0df6" class="">
+</p><p id="1bebadfb-262d-80ae-b366-f7360f56a64d" class="">Creamos la tabla:</p><blockquote id="1bebadfb-262d-8063-918a-f309cb1f932f" class=""><mark class="highlight-yellow_background">**IMPORTANTE añadir ID2 y acordarse de definir el campo del archivo como FILESTREAM</mark></blockquote><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1bebadfb-262d-80c7-8b95-e329f6201c54" class="code"><code class="language-SQL">CREATE TABLE [dbo].[profesor_FS](
+	[ID2] UNIQUEIDENTIFIER ROWGUIDCOL NOT NULL UNIQUE,
+	[profesor_DNI_profe] [varchar](9) NOT NULL PRIMARY KEY,
+	[profesor_N_profe] [nvarchar](12) NULL,
+	[profesor_Apel1_profe] [nvarchar](12) NULL,
+	[profesor_Apel2_profe] [nvarchar](12) NULL,
+	[profesor_Email_profe] [nvarchar](40) NULL,
+	[profesor_Telf_profe] [nvarchar](16) NULL,
+	[localidad_cod_localidad] [int] NOT NULL,
+	[fotografía] [varbinary](max) FILESTREAM,
+	[extension] [nvarchar](10) NULL)
+GO
+</code></pre><p id="1bebadfb-262d-80aa-80b3-ca6e14b258fd" class="">Añadimos los registros a la tabla:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1bebadfb-262d-808f-80f5-f177c0bb7790" class="code"><code class="language-SQL">INSERT INTO profesor_FS (ID2,profesor_DNI_profe,profesor_N_profe,profesor_Apel1_profe,localidad_cod_localidad,fotografía,extension)
+	SELECT NEWID(),&#x27;32840700N&#x27;,&#x27;Borja&#x27;,&#x27;Costa&#x27;,10, BULKCOLUMN,&#x27;JPG&#x27;
+	FROM OPENROWSET(BULK &#x27;C:\Fotos_profesores\Profesor1.JPG&#x27;, SINGLE_BLOB) AS FOTO
+GO
+
+
+INSERT INTO profesor_FS (ID2,profesor_DNI_profe,profesor_N_profe,profesor_Apel1_profe,localidad_cod_localidad,fotografía,extension)
+	SELECT NEWID(),&#x27;13855702H&#x27;,&#x27;Jose&#x27;,&#x27;Crego&#x27;,10, BULKCOLUMN,&#x27;JPG&#x27;
+	FROM OPENROWSET(BULK &#x27;C:\Fotos_profesores\Profesor2.JPG&#x27;, SINGLE_BLOB) AS FOTO</code></pre><p id="1bebadfb-262d-801a-83cd-d52c40d31f2e" class="">
+</p><h3 id="177badfb-262d-8084-902b-ecc7a4aab47c" class="">Otro ejemplo FILESTREAM</h3><p id="177badfb-262d-8065-8ff5-eff598bfc545" class="">Continuamos con otro ejemplo de FILESTREAM, vamos a añadir los campos a la tabla profesores. En este caso, como ya tenemos las relaciones establecidas y los datos añadidos, hemos optado por crear una nueva tabla para evitar conflictos, ya que si intentamos añadir un campo not null a una tabla que ya tiene relaciones y datos, nos dará el error de que no pueden existir campos nulos.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1bebadfb-262d-800c-b092-f546aa372e1d" class="code"><code class="language-SQL">-- Creamos el filegroup
+ALTER DATABASE [autoescuelap]
+ADD FILEGROUP [Fotoprofes] CONTAINS FILESTREAM;
+GO
+-- añadimos el fichero donde vamos a almacenar el filegroup (las imagenes)
+ALTER DATABASE [autoescuelap]
+	ADD FILE (NAME=&#x27;FOTOGRAFIAS&#x27;,
+	FILENAME = &#x27;C:\FOTOGRAFIAS&#x27;)
+	TO FILEGROUP [Fotoprofes]
+GO</code></pre><p id="177badfb-262d-8053-a9c1-f8d0a680af59" class="">Usaremos para este ejemplo la tabla Orla.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="177badfb-262d-80d6-b3f3-e4b6b0559eb1" class="code"><code class="language-SQL">CREATE TABLE Orla
+(ID INT IDENTITY,
+ ID2 UNIQUEIDENTIFIER ROWGUIDCOL NOT NULL UNIQUE,
+ nombre varchar(255),
+ fotografía VARBINARY(MAX) FILESTREAM,
+ extension CHAR(5)
+ )
+ GO</code></pre><p id="177badfb-262d-8039-b16e-e80f7a96dda8" class="">Ahora insertaremos los datos</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="177badfb-262d-8068-8907-d702ccae01b8" class="code"><code class="language-SQL">INSERT INTO Orla (ID2,nombre,fotografía,extension)
+	SELECT NEWID(), &#x27;Borja&#x27;, BULKCOLUMN, &#x27;JPG&#x27;
+	FROM OPENROWSET(BULK &#x27;c:\FOTOGRAFIAS&#x27;, SINGLE_BLOB) AS fotografia
+GO
+
+ INSERT INTO Orla (ID2,nombre,fotografía,extension)
+	SELECT NEWID(), &#x27;Marta&#x27;, BULKCOLUMN, &#x27;JPG&#x27;
+	FROM OPENROWSET(BULK &#x27;c:\Fotos_profesores\profesor2.jpg&#x27;, SINGLE_BLOB) AS fotografia
+GO
+
+ INSERT INTO Orla (ID2,nombre,fotografía,extension)
+	SELECT NEWID(), &#x27;Juanjo&#x27;, BULKCOLUMN, &#x27;JPG&#x27;
+	FROM OPENROWSET(BULK &#x27;c:\Fotos_profesores\profesor3.jpg&#x27;, SINGLE_BLOB) AS fotografia
+GO
+
+--Comprobamos
+SELECT * FROM Orla;
+GO
+</code></pre><figure id="177badfb-262d-80a3-8fb2-f96815f24908" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-10_a_las_21.17.19.png"><img style="width:816px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-10_a_las_21.17.19.png"/></a></figure><figure id="177badfb-262d-8097-80b7-eff012b2303e" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-10_a_las_21.21.23.png"><img style="width:768px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-10_a_las_21.21.23.png"/></a></figure><hr id="1bebadfb-262d-8093-9cad-c17d2f433543"/><h2 id="176badfb-262d-8075-817a-f1a094358171" class="">FILETABLES </h2><p id="176badfb-262d-803e-a10f-cbc37c700ef9" class="">Podría decirse que FILETABLE es una especie de FILESTREAM mejorado, filetable permite acceder a los archivos desde fuera de SQL server, ya sea con el explorador de windows o bien con otras aplicaciones.</p><p id="177badfb-262d-80d8-a2b4-ca17fc7a8b48" class="">Lo primero que haremos para usar FILETABLE es activar FILESTREAM y adjudicar un directorio lógico como referencia para almacenar y gestionar las imágenes en el sistema de archivos.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="177badfb-262d-803a-bb8f-cc51789dc4da" class="code"><code class="language-SQL">--Activamos filestream
+ALTER DATABASE [autoescuelap]
+SET FILESTREAM (DIRECTORY_NAME = &#x27;FotografiaStore&#x27;)
+WITH ROLLBACK IMMEDIATE
+GO
+
+ALTER DATABASE [autoescuelap]
+	SET FILESTREAM(NON_TRANSACTED_ACCESS = FULL,
+	DIRECTORY_NAME = &#x27;FOTOGRAFIA&#x27;)
+	WITH ROLLBACK IMMEDIATE
+GO</code></pre><p id="177badfb-262d-80a4-8710-faa140edfe9b" class="">
+</p><p id="176badfb-262d-8012-91e9-dab0dfdb8465" class="">Ahora crearemos una tabla para organizar los elementos que vamos a almacenar</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="177badfb-262d-8072-98bf-dd72b4826518" class="code"><code class="language-SQL">--Creamos tablas FILETABLE
+CREATE TABLE FotografiaStore AS FILETABLE
+WITH
+(
+	FileTable_Directory = &#x27;FotografiaStore&#x27;,
+	FileTable_Collate_Filename = database_default,
+	FILETABLE_STREAMID_UNIQUE_CONSTRAINT_NAME=UQ_stream_id
+);
+GO</code></pre><p id="176badfb-262d-8058-b69c-e06bd5d1a5ee" class="">
+</p><p id="176badfb-262d-805e-9cd4-fe70580c5467" class="">Ahora ya solo nos quedaría acceder a la carpeta que acabamos de crear y copiar en ella todas las imágenes que queramos insertar.</p><figure id="177badfb-262d-8045-b49e-dc03b69aafda" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-10_a_las_23.36.46.png"><img style="width:1034.96875px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-10_a_las_23.36.46.png"/></a></figure><p id="177badfb-262d-8092-923e-fd97e52d8131" class="">
+</p><h1 id="176badfb-262d-80ec-bffe-fa8a49241c62" class=""><span style="border-bottom:0.05em solid">POWERBI</span></h1><p id="188badfb-262d-805d-9e61-dbcfe363d814" class=""><strong>Power BI</strong> es una herramienta de análisis de datos y visualización de negocios desarrollada por <strong>Microsoft</strong>. Está diseñada para ayudar a las empresas y a los profesionales a recopilar, transformar, analizar y visualizar datos en informes y paneles interactivos. Es una de las herramientas más populares para la <strong>inteligencia empresarial (BI, Business Intelligence)</strong> debido a su facilidad de uso y su integración con otros productos de Microsoft como Excel, Azure y Microsoft 365.</p><p id="176badfb-262d-80e2-8a54-fc1cfec74fdd" class="">Lo primero que haremos será acceder a la web oficial de POWERBI, descargarlo  e instalarlo. Una vez instalado, lo abrimos y nos encontramos con esta pantalla principal:</p><figure id="177badfb-262d-80bd-b597-deb8179e12ad" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-11_a_las_0.24.21.png"><img style="width:1034.96875px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-11_a_las_0.24.21.png"/></a></figure><p id="177badfb-262d-8062-81be-cb12b8607bbf" class="">
+</p><p id="176badfb-262d-80d6-a27e-e72c67610451" class="">Seleccionamos SQL Server para añadir la conexión a nuestra base de datos. Añadimos los datos de nuestro servidor y de nuestra base de datos (en este caso pondremos un “.” en servidor y nuestra base de datos autoescuelap.</p><figure id="177badfb-262d-8000-844d-c572b0b28497" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-11_a_las_0.26.01.png"><img style="width:1035px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-11_a_las_0.26.01.png"/></a></figure><p id="177badfb-262d-800e-9d48-db57f2559b31" class="">
+</p><p id="176badfb-262d-803d-869b-d3ebca86e484" class="">En la siguiente pantalla escogemos “USar mis credenciales actuales”, nos va a salir un warning pero lo ignoramos y continuamos.</p><figure id="177badfb-262d-80e2-a9f4-ea75145139b0" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-11_a_las_0.26.50.png"><img style="width:444.9921875px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-11_a_las_0.26.50.png"/></a></figure><p id="176badfb-262d-8024-b039-c9c9f9c2562d" class="">
+</p><p id="176badfb-262d-806a-b221-cdc4e19c6ed2" class="">Una vez se carguen los datos de nuestra base de datos, seleccionaremos la tabla donde se encuentran las imágenes y se verá de la siguiente manera:</p><figure id="177badfb-262d-804e-9dcf-eeb46f7adc76" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-11_a_las_0.32.22.png"><img style="width:624px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-11_a_las_0.32.22.png"/></a></figure><p id="177badfb-262d-802a-a9cc-debddab31d2c" class="">
+</p><p id="188badfb-262d-80e4-96a0-c678e19e74aa" class="">Debemos de tener en cuenta que hay tres pasos que debemos hacer:</p><ul id="188badfb-262d-80c4-998b-f88b436e931f" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange_background"><strong>Cambiar el tipo de VARBINARY a TEXT</strong></mark></li></ul><ul id="188badfb-262d-80d5-af14-f14bb8811dd1" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange_background"><strong>Agregar una columna extra y añadir la fórmula</strong></mark></li></ul><ul id="188badfb-262d-80ed-ad2c-cd85ae0a3177" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange_background"><strong>Cambiar a url de imagen</strong></mark></li></ul><p id="188badfb-262d-805b-8d6b-d3e47e215e14" class="">Pinchamos en Tranformar datos y se nos mostrará el editor de Power Query, donde podremos modificar los datos y la tabla.</p><figure id="188badfb-262d-8078-bac5-c4d71a16254a" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-27_a_las_16.42.10.png"><img style="width:1153.953125px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-27_a_las_16.42.10.png"/></a></figure><p id="188badfb-262d-8082-b8b8-f388e4028089" class="">
+</p><p id="188badfb-262d-803b-8073-c6a8c67dfef9" class="">Lo que queremos es quqe se nos muestren las fotos de los profesores. Para ello, primero cambiamos el tipo de dato a texto.</p><figure id="188badfb-262d-8002-bfb9-fc38bcb68c6e" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-27_a_las_16.44.15.png"><img style="width:1153.984375px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-27_a_las_16.44.15.png"/></a></figure><p id="188badfb-262d-80e9-86f4-c8d35f0b3537" class="">
+</p><figure id="188badfb-262d-8042-9b9d-d2c91a3369c8" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-27_a_las_16.50.27.png"><img style="width:1153.984375px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-27_a_las_16.50.27.png"/></a></figure><p id="188badfb-262d-807e-8c98-c47156b404fd" class="">
+</p><p id="188badfb-262d-80a2-9496-c052544e4cd2" class="">Ahora pinchamos en “Añadir Columna” y luego en “Columna personalizada” y añadiremos la siguiente fórmula y presionamos “Aceptar”.</p><figure id="188badfb-262d-80ca-a306-d9d06c66fd70" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-27_a_las_16.57.50.png"><img style="width:783.9921875px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-27_a_las_16.57.50.png"/></a></figure><p id="188badfb-262d-809c-9487-df84ad37e2ab" class="">
+</p><figure id="188badfb-262d-801c-9cea-cc1c19d09200" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-27_a_las_17.00.37.png"><img style="width:783.984375px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-27_a_las_17.00.37.png"/></a></figure><p id="188badfb-262d-80a4-a3fc-e9786517013e" class="">
+</p><p id="188badfb-262d-80f6-9a04-d65a5d36c6a9" class="">Y ya solo nos quedaría presionar en “Cerrar y aplicar”. Ahora cambiaremos a “Vista de informe” en el lateral izquierdo, aquí será donde diseñaremos la manera en que se nos muestra el resultado. Para ello, en el menú lateral de visualizaciones, seleccionamos “Tabla” y a continuación seleccionamos en “Datos” los datos que queremos que se nos muestren. En este caso hemos hecho la prueba con el nombre de los profesores y las imágenes (Que contienen las fotos de cada uno de ellos, estas las hemos generado con Gork, la IA de X.</p><figure id="188badfb-262d-80ce-8682-c3f8f53455fe" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-27_a_las_23.51.57.png"><img style="width:783.984375px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-01-27_a_las_23.51.57.png"/></a></figure><blockquote id="188badfb-262d-8097-ac05-e003720db86c" class=""><mark class="highlight-yellow_background">Por alguna razón, tras realiar varias pruebas, no hemos conseguido que se muestren las fotos completamente, podría deberse a que el ordenador desde el cual trabajamos no tenga los requisitos mínimos requeridos, como los 16Gb de RAM.</mark></blockquote><p id="188badfb-262d-80b0-b9f0-cd453154e998" class="">
+</p><h1 id="188badfb-262d-80eb-9110-c0bdd5350a81" class="">9.- Particiones</h1><blockquote id="196badfb-262d-80fd-9b6c-d125443d6215" class=""><mark class="highlight-yellow_background">Mecanismo que permite dividir una tabla o un índice en unidades más pequeñas denominadas particiones. Esto tiene ciertos beneficios como mejorar rendimiento, reducción de espacio de almacenamiento, mejor escalabilidad… Las divisiones han de ser </mark><mark class="highlight-yellow_background"><strong>siempre de forma horizontal</strong></mark><mark class="highlight-yellow_background">, es decir, por filas en función de un campo (fecha, valores, hash…)</mark></blockquote><p id="1acbadfb-262d-8006-9629-cf1fedace853" class="">
+</p><p id="1acbadfb-262d-8025-adef-c980cad84d12" class="">1.- Creamos directorios para almacenar los archivos de la base de datos<div class="indented"><p id="1acbadfb-262d-8004-ab62-fe0a17481f99" class="">(Podemos usar cmdshell):</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1acbadfb-262d-80bd-82cc-e04b226f2d29" class="code"><code class="language-SQL">EXECUTE sp_configure ‘xp_cmdshell’, 1;
+GO
+RECONFIGURE;
+GO
+xp_cmdshell ‘mkdir C:\DATA\’
+GO</code></pre><p id="1acbadfb-262d-8016-8537-e5d842c7052e" class="">Como puede llevar a confusión, vamos a diferenciar entre filegroups y particiones:</p><table id="1acbadfb-262d-807c-9842-d0affc6b20ed" class="simple-table"><thead class="simple-table-header"><tr id="1acbadfb-262d-8035-9b2e-cfae0a1b0b0f"><th id="?teU" class="simple-table-header-color simple-table-header">Característica</th><th id="EJG|" class="simple-table-header-color simple-table-header"><strong>FILEGROUP</strong></th><th id="pr{W" class="simple-table-header-color simple-table-header"><strong>PARTICIÓN</strong></th></tr></thead><tbody><tr id="1acbadfb-262d-803c-abda-e76f24be880b"><th id="?teU" class="simple-table-header-color simple-table-header"><strong>Definición</strong></th><td id="EJG|" class="">Un grupo lógico de archivos de datos donde se almacenan tablas e índices.</td><td id="pr{W" class="">Una división de una tabla o un índice en varias partes según un rango de valores.</td></tr><tr id="1acbadfb-262d-80e1-a3b6-dbcf421edad2"><th id="?teU" class="simple-table-header-color simple-table-header"><strong>Objetivo</strong></th><td id="EJG|" class="">Distribuir físicamente los datos en distintos discos para mejorar rendimiento y administración.</td><td id="pr{W" class="">Mejorar el acceso a los datos separándolos en diferentes particiones según criterios específicos.</td></tr><tr id="1acbadfb-262d-8088-a531-fbe5ed6383bf"><th id="?teU" class="simple-table-header-color simple-table-header"><strong>Alcance</strong></th><td id="EJG|" class="">Afecta a toda la base de datos, permitiendo almacenar diferentes objetos en distintos FILEGROUPS.</td><td id="pr{W" class="">Se aplica a una única tabla o índice para dividir sus datos.</td></tr><tr id="1acbadfb-262d-80a5-b9d8-d411dc69c73b"><th id="?teU" class="simple-table-header-color simple-table-header"><strong>Ejemplo de uso</strong></th><td id="EJG|" class="">Poner los datos de una base en distintos discos para optimizar el rendimiento.</td><td id="pr{W" class="">Separar registros de una tabla por fechas para consultas más rápidas.</td></tr><tr id="1acbadfb-262d-8011-bcf9-dcbf0df314ca"><th id="?teU" class="simple-table-header-color simple-table-header"><strong>Configuración</strong></th><td id="EJG|" class="">Se crean al definir la base de datos (<code>CREATE DATABASE</code>).</td><td id="pr{W" class="">Se crean al definir una tabla particionada (<code>CREATE PARTITION FUNCTION</code>).</td></tr></tbody></table><blockquote id="1acbadfb-262d-80c1-94e2-de1438d00eb5" class=""><mark class="highlight-yellow_background">Cuando tenemos la base de datos almacenada en un único disco o cuando la base de datos es demasiado pequeña, no compensa usar filegroups porque no se notarán beneficios.</mark></blockquote><p id="1acbadfb-262d-80af-a088-f2ff76c6a7fd" class="">Ahora vamos a crear los archivos de la base de datos:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1acbadfb-262d-8064-b913-df99d06edbd6" class="code"><code class="language-SQL">CREATE DATABASE [AutoescuelaP] 
+	ON PRIMARY ( NAME = &#x27;AutoescuelaP&#x27;, 
+		FILENAME = &#x27;C:\Data\AutoescuelaP_Fijo.mdf&#x27; , 
+		SIZE = 15360KB , MAXSIZE = UNLIMITED, FILEGROWTH = 0) 
+	LOG ON ( NAME = &#x27;AutoescuelaP_log&#x27;, 
+		FILENAME = &#x27;C:\Data\AutoescuelaP_log.ldf&#x27; , 
+		SIZE = 10176KB , MAXSIZE = 2048GB , FILEGROWTH = 10%) 
+GO</code></pre></div></p><p id="1acbadfb-262d-8032-b7e2-d69caf6f4c8b" class="">
+</p><p id="1acbadfb-262d-804e-aa72-fc2fb00e06c9" class="">O bien si tenemos la base de datos, creamos los archivos y se vinculan los filegroups a cada archivo</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1acbadfb-262d-80ed-bf4a-f3a306b38c7c" class="code"><code class="language-SQL">
+ALTER DATABASE [autoescuelaP] ADD FILE ( NAME = &#x27;Antiguos&#x27;, FILENAME = &#x27;c:\DATA\Antiguos.ndf&#x27;, SIZE = 5MB, MAXSIZE = 100MB, FILEGROWTH = 2MB ) TO FILEGROUP [Antiguos] 
+GO
+
+ALTER DATABASE [autoescuelaP] ADD FILE ( NAME = &#x27;Altas_2023&#x27;, FILENAME = &#x27;c:\DATA\Altas_2023.ndf&#x27;, SIZE = 5MB, MAXSIZE = 100MB, FILEGROWTH = 2MB ) TO FILEGROUP [Altas_2023
+GO
+
+ALTER DATABASE [autoescuelaP] ADD FILE ( NAME = &#x27;Altas_2024&#x27;, FILENAME = &#x27;c:\DATA\Altas_2024.ndf&#x27;, SIZE = 5MB, MAXSIZE = 100MB, FILEGROWTH = 2MB ) TO FILEGROUP [Altas_2024] 
+GO
+
+ALTER DATABASE [autoescuelaP] ADD FILE ( NAME = &#x27;Altas_2025&#x27;, FILENAME = &#x27;c:\DATA\Altas_2025.ndf&#x27;, SIZE = 5MB, MAXSIZE = 100MB, FILEGROWTH = 2MB ) TO FILEGROUP [Altas_2025] 
+GO
+</code></pre><blockquote id="1acbadfb-262d-80df-81b7-ee5af9cdd3ee" class=""><mark class="highlight-yellow_background">**MPORTANTE: Tener creado previamente el directorio donde vamos a crear los archivos, sino nos dará error. </mark><figure id="1acbadfb-262d-80c6-a876-c10e0a6d9b8c" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-04_a_las_12.46.19.png"><img style="width:767.9921875px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-04_a_las_12.46.19.png"/></a></figure></blockquote><p id="1acbadfb-262d-8066-8aa0-f9f5cefcc0e7" class="">
+</p><p id="1acbadfb-262d-8026-af5a-e90593cff034" class="">Ahora creamos la tabla para añadir los registros y posteriormente comprobamos como directamente cada registro se ha distribuido en cada partición</p><figure id="1acbadfb-262d-800d-8f20-e52959586919" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-04_a_las_13.31.11.png"><img style="width:804.984375px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-04_a_las_13.31.11.png"/></a></figure><p id="1acbadfb-262d-8088-8623-ed73b724b79f" class="">
+</p><figure id="1acbadfb-262d-8086-a246-e620eb2d30d8" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-04_a_las_13.35.42.png"><img style="width:620px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-04_a_las_13.35.42.png"/></a></figure><p id="1acbadfb-262d-8033-88de-caa90324c87d" class="">
+</p><p id="1acbadfb-262d-804d-91c8-e4acd0739004" class="">
+</p><p id="1acbadfb-262d-80b6-b0ac-ee4918826754" class="">
+</p><h2 id="1acbadfb-262d-8097-b162-ca4bf051f632" class="">SPLIT</h2><p id="1acbadfb-262d-80ab-a07b-ccb1dd045910" class=""><strong>Split </strong>lo que hace es dividir una partición, vamos a establecer por ejemplo una partición para los registros del año 2022</p><figure id="1acbadfb-262d-80e1-8762-d2f49ad7799c" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-04_a_las_17.46.49.png"><img style="width:804.984375px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-04_a_las_17.46.49.png"/></a></figure><blockquote id="1acbadfb-262d-8003-ab81-e972b82c830c" class=""><mark class="highlight-yellow_background">Como vemos, debemos de tener un filegroup libre para asignar la partición que queremos crear, de lo contrario se nos mostrará un warning. En este caso, no hemos dejado ninguno libre, por lo que hemos tenido que crear el filegroup nuevo para la partición que se va a generar, adjudicarle el archivo y modificar el esquema de las particiones.</mark></blockquote><figure id="1acbadfb-262d-80ef-8e73-f1ad0b8d4bfe" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-04_a_las_18.22.47.png"><img style="width:804.984375px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-04_a_las_18.22.47.png"/></a></figure><h2 id="1acbadfb-262d-8093-9101-f25c7006dd31" class="">MERGE</h2><p id="1acbadfb-262d-8074-87f9-d2e1c161a94c" class=""><strong>Merge</strong> lo que hace es fusionar particiones, elimina la barrera que separa dos particiones y las une. En este caso vamos a suprimir la partición que hemos hecho con split.</p><figure id="1acbadfb-262d-804b-8e98-f4c68c1dc741" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-04_a_las_18.28.42.png"><img style="width:669px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-04_a_las_18.28.42.png"/></a></figure><p id="1acbadfb-262d-80d9-aedb-f5438ed406e3" class="">
+</p><p id="1acbadfb-262d-802e-a977-c132b34f4935" class="">
+</p><h2 id="1acbadfb-262d-80dc-8fce-e41b32bab716" class="">SWITCH</h2><p id="1acbadfb-262d-80b1-9aab-d80efc585816" class="">Switch nos sirve para intercambiar particiones, en este caso lo vamos a probar para llevar la partición 1 a la tabla que guarda las altas antiguas y así dejar en la tabla las particiones de los ultimos 3 años.</p><figure id="1acbadfb-262d-80ef-ba89-e1ba58dc0720" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-04_a_las_18.49.38.png"><img style="width:634px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-04_a_las_18.49.38.png"/></a></figure><p id="1acbadfb-262d-80e6-b904-d541918e2506" class="">
+</p><p id="1acbadfb-262d-809c-8054-c85c8f42367f" class="">
+</p><h2 id="1acbadfb-262d-8001-a8e5-e75422ebb53b" class="">TRUNCATE</h2><p id="1acbadfb-262d-8053-969a-e3ab10973752" class="">Truncate nos sirve para eliminar particiones, es la operación mas simple. Vamos a probar a borrar la partición 4 que es la que tiene las altas del último año.</p><figure id="1acbadfb-262d-8092-a708-f565fe4d8dac" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-04_a_las_18.55.50.png"><img style="width:636px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-04_a_las_18.55.50.png"/></a></figure><p id="1acbadfb-262d-8044-95cb-d8fbef0e8d1c" class="">
+</p><figure id="1acbadfb-262d-8018-b6c0-ebe308af1b2e" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-04_a_las_18.56.28.png"><img style="width:656px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-04_a_las_18.56.28.png"/></a></figure><p id="1acbadfb-262d-803d-a457-fb82b4468f95" class="">
+</p><blockquote id="1acbadfb-262d-80e3-868a-f0d718c3c126" class=""><mark class="highlight-red"><mark class="highlight-orange_background"><strong>En una tabla particionada, la PK debe incluir siempre la columna mediante la cual se particiona la tabla. Es decir, que si designamos una PK en dicha tabla, uno de los datos debe de ser el discriminando. En nuestro ejemplo, si designamos como PK solo el campo “id_alta” nos dará un error.</strong></mark></mark></blockquote><figure id="1acbadfb-262d-8030-bb97-d00646d94b3b" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-04_a_las_20.25.57.png"><img style="width:804.9765625px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-04_a_las_20.25.57.png"/></a></figure><h2 id="1acbadfb-262d-8059-b7e8-c88159c01600" class="">REPASO CREAR PARTICIÓN</h2><h3 id="1acbadfb-262d-8079-9a80-e85094c0cd0d" class="">1.- Creamos los fliesgroups para cada partición.</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1bebadfb-262d-8064-b48a-c7d2981997df" class="code"><code class="language-SQL">ALTER DATABASE [nombre_BD] ADD FILEGROUP [nombre_FG]
+GO</code></pre><h3 id="1acbadfb-262d-803d-bcc4-e3eb42549ec1" class="">2.- Creamos archivos y les vinculamos los filesgroups.</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1bebadfb-262d-80b7-9b6f-e6375bc245a3" class="code"><code class="language-SQL">ALTER DATABASE [nombre_BD] ADD FILE ( NAME = &#x27;nombre_archivo&#x27;, FILENAME = &#x27;ruta_archivo&#x27;, SIZE = 5MB, MAXSIZE = 100MB, FILEGROWTH = 2MB ) TO FILEGROUP [nombre_FG]
+GO</code></pre><h3 id="1acbadfb-262d-8048-8d28-f1bd84f28f37" class="">3.- Creamos la función de partición.</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1bebadfb-262d-8048-b573-d09040e72a00" class="code"><code class="language-SQL">CREATE PARTITION FUNCTION nombre_funcion (tipo_de_dato)
+AS RANGE RIGHT/LEFT
+FOR VALUES (&#x27;valores_de_rangos&#x27;)GO</code></pre><h3 id="1acbadfb-262d-802a-8c02-e55778125940" class="">4.- Creamos el esquema de la partición.</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1bebadfb-262d-8017-a4f7-ec67fdd992a4" class="code"><code class="language-SQL">CREATE PARTITION SCHEME nombre_esquema
+AS PARTITION nombre_funcion
+TO (FG1,FG2,FG3…)
+GO</code></pre><h3 id="1acbadfb-262d-8073-8766-dc8c8c35945e" class="">5.- Creamos la tabla e introducimos datos.</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1bebadfb-262d-802a-9b9c-d474a985d4de" class="code"><code class="language-SQL">CREATE TABLE nombre_tabla
+( id_alta int identity (1,1),
+nombre varchar(20),
+apellido varchar (20),
+fecha_alta datetime )
+ON nombre_esquema
+(nombre_dato_que_particiona)
+GO</code></pre><blockquote id="1acbadfb-262d-80f5-ada1-c09697a62bac" class=""><mark class="highlight-red"><mark class="highlight-orange_background"><strong><span style="border-bottom:0.05em solid">Siempre hay que incluir el discriminando de la partición dentro de la PK de la tabla particionada</span></strong></mark></mark></blockquote><p id="1acbadfb-262d-80da-9e27-d5b29319ba43" class="">
+</p><h2 id="1acbadfb-262d-8022-a5cf-e859da4a1dc8" class="">Otro ejemplo Particiones (integer)</h2><p id="1acbadfb-262d-8013-b2b5-dd701f201f03" class="">Probaremos otro ejemplo, esta vez realizaremos la partición de la tabla cliente en función de su código de localidad, si la localidad es gallega (codigos entre el 1 y el 4), el cliente se guardará en la partición correspondiente a esa localidad y si la localidad no es gallega se guardará en una partición a parte (ya que serán clientes minoritarios).</p><p id="1acbadfb-262d-80ca-9642-efe11d358d8f" class="">Para ello:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1acbadfb-262d-804f-8f1e-eaef12fdfbf5" class="code"><code class="language-SQL">-- 1.- CREO FILEGROUPS
+
+ALTER DATABASE [autoescuelaP] ADD FILEGROUP [Otras] 
+GO 
+
+ALTER DATABASE [autoescuelaP] ADD FILEGROUP [Coruna] 
+GO 
+
+ALTER DATABASE [autoescuelaP] ADD FILEGROUP [Lugo] 
+GO 
+
+ALTER DATABASE [autoescuelaP] ADD FILEGROUP [Orense]
+GO
+
+ALTER DATABASE [autoescuelaP] ADD FILEGROUP [Pontevedra]
+GO
+
+
+-- 2.- CREO LOS ARCHIVOS Y VINCULO LOS FILEGROUPS
+-- Se crean archivos para añadir cada filegroup a un archivo
+
+
+ALTER DATABASE [autoescuelaP] ADD FILE ( NAME = &#x27;Otras&#x27;, FILENAME = &#x27;c:\DATA\otras&#x27;, SIZE = 5MB, MAXSIZE = 100MB, FILEGROWTH = 2MB ) TO FILEGROUP [Otras] 
+GO
+
+ALTER DATABASE [autoescuelaP] ADD FILE ( NAME = &#x27;Coruna&#x27;, FILENAME = &#x27;c:\DATA\coruna.ndf&#x27;, SIZE = 5MB, MAXSIZE = 100MB, FILEGROWTH = 2MB ) TO FILEGROUP [Coruna] 
+GO
+
+ALTER DATABASE [autoescuelaP] ADD FILE ( NAME = &#x27;Lugo&#x27;, FILENAME = &#x27;c:\DATA\lugo.ndf&#x27;, SIZE = 5MB, MAXSIZE = 100MB, FILEGROWTH = 2MB ) TO FILEGROUP [Lugo] 
+GO
+
+ALTER DATABASE [autoescuelaP] ADD FILE ( NAME = &#x27;Orense&#x27;, FILENAME = &#x27;c:\DATA\orense.ndf&#x27;, SIZE = 5MB, MAXSIZE = 100MB, FILEGROWTH = 2MB ) TO FILEGROUP [Orense] 
+GO
+
+ALTER DATABASE [autoescuelaP] ADD FILE ( NAME = &#x27;Pontevedra&#x27;, FILENAME = &#x27;c:\DATA\pontevedra.ndf&#x27;, SIZE = 5MB, MAXSIZE = 100MB, FILEGROWTH = 2MB ) TO FILEGROUP [Pontevedra] 
+GO
+
+
+-- 3.- CREO FUNCION PARTICION
+-- en este caso segúnel código de la localidad
+
+DROP PARTITION FUNCTION FN_Localidades;
+GO
+
+CREATE PARTITION FUNCTION FN_Localidades (integer) 
+AS RANGE LEFT -- En este caso 
+	FOR VALUES (1,2,3,4); -- del 5 en adelante se guarda en la partición restante
+GO
+
+-- 4.- CREO EL ESQUEMA DE PARTICIÓN
+-- Nos mapeará los registros según las particiones
+
+CREATE PARTITION SCHEME SC_Localidades 
+AS PARTITION FN_Localidades 
+	TO (Coruna,Lugo,Orense,Pontevedra,Otras); 
+GO</code></pre><figure id="1acbadfb-262d-800e-ad13-cba192ee2262" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-04_a_las_22.38.32.png"><img style="width:804.9921875px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-04_a_las_22.38.32.png"/></a></figure><p id="1acbadfb-262d-8036-a9de-c4435445f162" class="">
+</p><p id="1acbadfb-262d-803c-a48a-ed90d3d75c47" class="">Vamos a usar SPLIT para crear una partición para la localidad de MADRID</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1acbadfb-262d-80bd-bb36-d7dacdfa5173" class="code"><code class="language-SQL">ALTER DATABASE [autoescuelaP] ADD FILEGROUP [Madrid] 
+GO 
+
+ALTER DATABASE [autoescuelaP] ADD FILE ( NAME = &#x27;Madrid&#x27;, FILENAME = &#x27;c:\DATA\madrid.ndf&#x27;, SIZE = 5MB, MAXSIZE = 100MB, FILEGROWTH = 2MB ) TO FILEGROUP [Madrid] 
+GO
+
+ALTER PARTITION SCHEME SC_Localidades 
+NEXT USED Madrid;
+
+
+ALTER PARTITION FUNCTION FN_Localidades() 
+	SPLIT RANGE (5); 
+GO</code></pre><figure id="1acbadfb-262d-80ce-b6e1-e4c1970ff8fa" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-04_a_las_23.18.19.png"><img style="width:804.9921875px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-04_a_las_23.18.19.png"/></a></figure><p id="1acbadfb-262d-8079-881f-c72f8e99bdf8" class="">
+</p><p id="1acbadfb-262d-80f6-81fe-df018f21adae" class="">Ahora vamos a intentar copiar los datos de la partición 6 (clientes del resto de España) en una tabla específica para dichos clientes.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1acbadfb-262d-801a-98f4-c5e12053ba41" class="code"><code class="language-SQL">DROP TABLE cliente_espana;
+GO
+
+CREATE TABLE cliente_espana (
+    DNI_cliente VARCHAR(9) PRIMARY KEY,  
+    N_cliente NVARCHAR(12),       
+    Apel1_cliente NVARCHAR(12),   
+    Apel2_cliente NVARCHAR(12),       
+    Dir_cliente NVARCHAR(50),    
+    Email_cliente NVARCHAR(30),    
+    Telf_cliente NVARCHAR(16),   
+    localidad_cod_localidad INT not null   
+)
+ON Otras
+
+GO
+
+ALTER TABLE cliente
+	SWITCH Partition 6 to cliente_espana
+GO</code></pre><p id="1acbadfb-262d-806f-99a4-e64050383952" class="">Pero vemos que nos da un error:</p><figure id="1acbadfb-262d-805a-bddd-e9ff9ea7d32d" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-04_a_las_23.54.31.png"><img style="width:804.9765625px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-04_a_las_23.54.31.png"/></a></figure><blockquote id="1acbadfb-262d-80a7-9d45-c987181115e7" class=""><mark class="highlight-yellow_background">*En principio, solo se pueden mover datos dentro de la misma partición</mark></blockquote><hr id="1acbadfb-262d-80d7-903c-fc725e9a08f5"/><h1 id="1acbadfb-262d-8013-afb0-c79d41c0ef95" class="">10.- Tablas temporales versión sistema</h1><p id="1bebadfb-262d-802e-a5e2-d4218a8bbbe9" class="">Las tablas temporales versión sistema en SQL Server son una característica que permite almacenar automáticamente el historial de los datos de una tabla a lo largo del tiempo. Esto facilita la auditoría, el análisis de cambios y la recuperación de datos en un momento específico sin necesidad de implementar manualmente un sistema de control de versiones. Muy parecido a GuitHub.</p><ol type="1" id="1bebadfb-262d-80eb-bf1d-d7cd2be21b7a" class="numbered-list" start="1"><li>Se define una tabla con dos columnas de fecha (<code>SysStartTime</code> y <code>SysEndTime</code>) para registrar el rango de tiempo en el que un registro es válido.</li></ol><ol type="1" id="1bebadfb-262d-8024-a40d-fd6ee97216e3" class="numbered-list" start="2"><li>SQL Server crea automáticamente una <strong>tabla de historial</strong> asociada donde almacena las versiones antiguas de los registros.</li></ol><ol type="1" id="1bebadfb-262d-8012-affb-f6d3a0ca5a01" class="numbered-list" start="3"><li>Cuando se <strong>actualiza o elimina</strong> un registro, SQL Server mueve la versión anterior a la tabla de historial antes de modificar el dato en la tabla principal.</li></ol><ol type="1" id="1bebadfb-262d-802c-b39c-c00be93c602a" class="numbered-list" start="4"><li>Se pueden hacer consultas para recuperar datos de un momento específico.</li></ol><p id="1bebadfb-262d-807f-a017-d127e722401c" class="">
+</p><p id="1bebadfb-262d-807a-a1d8-fad8ddc4e8af" class="">Vamos a crear la tabla contratos en nuestra base de datos, donde almacenaremos los contratos que vayan teniendo los trabajadores y añadireos la tabla temporal versión sistema</p><p id="1bebadfb-262d-80c0-91cd-c2bdeea6b803" class="">
+</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1bebadfb-262d-804a-bf70-f9b8d5b70d73" class="code"><code class="language-SQL">CREATE TABLE [dbo].[contratos](
+	[ID_contrato] [int] NOT NULL PRIMARY KEY,
+	[Cargo] [nvarchar](18) NULL,
+	[T_contrato] [nvarchar](12) NULL,
+	[T_jornada] [nvarchar](12) NULL,
+	[Sueldo] [decimal](10, 2) NULL,
+	[Antiguedad] [nvarchar](9) NULL,
+	[profesor_profesor_DNI_profe] [varchar](9) NOT NULL,
+	    SysStartTime   DATETIME2 GENERATED ALWAYS AS ROW START NOT NULL,  
+		SysEndTime     DATETIME2 GENERATED ALWAYS AS ROW END NOT NULL,  
+		PERIOD FOR SYSTEM_TIME (SysStartTime, SysEndTime))  
+ 
+WITH (SYSTEM_VERSIONING = ON (HISTORY_TABLE = dbo.contratos_historial));  
+GO</code></pre><blockquote id="1bebadfb-262d-804c-b200-d096395d6ee0" class=""><mark class="highlight-yellow_background">**SysStartTime y SysEndTime: Son columnas especiales que almacenan automáticamente el tiempo en que cada registro fue válido.<br/>PERIOD FOR SYSTEM_TIME: Define el rango de validez de cada fila.<br/>SYSTEM_VERSIONING = ON: Activa el versionado temporal y genera automáticamente la tabla de historial.<br/></mark></blockquote><p id="1bebadfb-262d-8030-bb48-c71bb008e933" class="">
+</p><blockquote id="1bebadfb-262d-805f-852e-ce810771ac57" class=""><mark class="highlight-yellow_background">**Si queremos modificar una tabla para añadirle tablas temporales version de sistema, debemos tener en cuenta que primero debemos añadir la tabla y luego activar el control de versiones, si intentamos hacerlo todo a la vez nos dará un error.</mark></blockquote><p id="1bebadfb-262d-8018-b0db-e0c26cc84d27" class="">Ahora haremos modificaciones en la tabla contratos para aumentar sueldos, antiguedad y cambiar algún cargo:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1bebadfb-262d-80f9-bfa3-cb59ca76f8b8" class="code"><code class="language-SQL">UPDATE [dbo].[contratos]
+SET Sueldo = 3500.75, Antiguedad = &#x27;18 años&#x27;
+WHERE ID_contrato = 1;
+
+UPDATE [dbo].[contratos]
+SET Sueldo = 4600.50, Antiguedad = &#x27;10 años&#x27;
+WHERE ID_contrato = 2;
+GO
+
+UPDATE [dbo].[contratos]
+SET Cargo = &#x27;Coordinador&#x27;
+WHERE ID_contrato = 1;
+GO
+
+PRINT GETUTCDATE()
+GO
+
+--Mar 22 2025 11:03AM
+--Completion time: 2025-03-22T12:03:59.0400540+01:00
+
+
+UPDATE [dbo].[contratos]
+SET Sueldo = 3500.75, Antiguedad = &#x27;18 años&#x27;
+WHERE ID_contrato = 1;
+
+UPDATE [dbo].[contratos]
+SET Sueldo = 4600.50, Antiguedad = &#x27;10 años&#x27;
+WHERE ID_contrato = 2;
+GO
+
+PRINT GETUTCDATE()
+GO
+--Mar 22 2025 11:04AM
+--Completion time: 2025-03-22T12:04:42.3275737+01:00</code></pre><p id="1bebadfb-262d-804f-9185-fc287dff73a8" class="">
+</p><p id="1bebadfb-262d-808c-a62b-f0207f0a9d4d" class="">Ahora vamos a ver lo que se refleja en la tabla historial y buscaremos en concreto los cambios que han sufrido los contratos de un trabajador en concreto:</p><figure id="1bebadfb-262d-809f-9866-eec148e886ce" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-22_a_las_12.07.10.png"><img style="width:1280.96875px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-22_a_las_12.07.10.png"/></a></figure><p id="1bebadfb-262d-8031-ae59-ff7d94932b8b" class="">
+</p><figure id="1bebadfb-262d-8082-815e-f8cd3125b883" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-22_a_las_12.08.01.png"><img style="width:1280.984375px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-22_a_las_12.08.01.png"/></a></figure><p id="1bebadfb-262d-80c9-a50f-cef88717e4cc" class="">Como vemos, se registran todos los cambios que ha ido sufriendo la tabla y el periodo en el que ha permanecido así ese cambio.</p><p id="1bebadfb-262d-809a-ab43-ce2a434a9fae" class="">
+</p><p id="1bebadfb-262d-8098-bcc9-c732797c9a8c" class="">Ahora vamos a eliminar uno de los profesores de la tabla porque se ha jubilado y vamos a comprobar que desaparece de la tabla contratos pero no del historial.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1bebadfb-262d-80f9-a2c5-e6863bcc2b53" class="code"><code class="language-SQL">DELETE FROM contratos
+WHERE ID_contrato = 1;
+GO</code></pre><figure id="1bebadfb-262d-8093-bec8-eeb790bb3f6b" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-22_a_las_12.22.25.png"><img style="width:1280.984375px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-22_a_las_12.22.25.png"/></a></figure><p id="1bebadfb-262d-8069-af36-dcad8b9da341" class="">
+</p><p id="1bebadfb-262d-80b2-a934-f448e7ce43fa" class="">En la tabla contratos ya no figura el profesor ya que no tiene ningún contrato activo, sin embargo en la tabla historial figura y figuran todos los cambios que han sufrido sus contratos a lo largo del tiempo y con las fechas de cada periodo.</p><figure id="1bebadfb-262d-80e8-abbc-ffb5ee406e7b" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-22_a_las_12.22.44.png"><img style="width:1280.96875px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-22_a_las_12.22.44.png"/></a></figure><p id="1bebadfb-262d-80c8-9b5d-d709d6f456bf" class="">
+</p><p id="1bebadfb-262d-80bc-b9c8-d009bf054a5d" class="">Ahora vamos a consultar todo lo que ha ocurrido en la tabla desde la creación de la misma:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1bebadfb-262d-80af-b559-c114a7f872e0" class="code"><code class="language-SQL">SELECT * FROM contratos
+FOR system_time ALL
+GO</code></pre><figure id="1bebadfb-262d-8014-9bbf-e1767a5ac424" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-22_a_las_12.30.00.png"><img style="width:1280.984375px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-22_a_las_12.30.00.png"/></a></figure><p id="1bebadfb-262d-800f-a517-f9c43e5f209a" class="">
+</p><h3 id="1bebadfb-262d-80ea-be27-d18cbee02d67" class=""><span style="border-bottom:0.05em solid">AS OF</span></h3><p id="1bebadfb-262d-8052-8fa2-cdeffd6b4493" class="">Ahora vamos a pedirle al sistema que nos muestre como estaba la tabla en un deterrminado momento del tiempo:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1bebadfb-262d-80bb-989f-c9d8c4746c6d" class="code"><code class="language-SQL">SELECT * FROM contratos
+FOR system_time AS OF &#x27;2025-03-22T10:57:40&#x27;
+ORDER BY ID_contrato;
+GO</code></pre><figure id="1bebadfb-262d-8073-8cfa-d08b6ca1bd96" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-22_a_las_12.36.55.png"><img style="width:1280.984375px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-22_a_las_12.36.55.png"/></a></figure><p id="1bebadfb-262d-8091-8039-dbf05f595195" class="">
+</p><p id="1bebadfb-262d-8097-a0db-f276c996594b" class="">Aquí cambiamos la fecha por la de hace apenas unos minutos y vemos los cambios.</p><figure id="1bebadfb-262d-8048-b417-efbb69f51b43" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-22_a_las_12.38.19.png"><img style="width:1280.984375px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-22_a_las_12.38.19.png"/></a></figure><p id="1bebadfb-262d-80cd-84ba-fc5f8e512c59" class="">
+</p><h3 id="1bebadfb-262d-8032-a564-e2ad81113914" class=""><span style="border-bottom:0.05em solid">FROM</span></h3><p id="1bebadfb-262d-80ac-919f-d7ce58ed0988" class="">Podemos usar “FROM” para extraer los datos en un periodo de tiempo específico</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1bebadfb-262d-804b-ae81-f881f008be43" class="code"><code class="language-SQL">SELECT * FROM contratos
+FOR system_time FROM &#x27;2025-03-21&#x27; TO &#x27;2025-03-23&#x27;
+ORDER BY ID_contrato;
+GO</code></pre><figure id="1bebadfb-262d-801e-a6e6-fa9ca36279ce" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-22_a_las_12.42.10.png"><img style="width:1280.984375px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-22_a_las_12.42.10.png"/></a></figure><p id="1bebadfb-262d-80e7-9e41-e7c8c1130909" class="">
+</p><h3 id="1bebadfb-262d-8079-b54e-d5783492a614" class=""><span style="border-bottom:0.05em solid">BETWEEN</span></h3><p id="1bebadfb-262d-80d1-b2db-f66bcf21629a" class="">Si usamos “BETWEEN” en vez de “FROM” lo que nos muestra es los registros activos en ese periodo de tiempo, si durante ese periodo un profesor no tuviese contrato no aparecería:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1bebadfb-262d-803b-a6e2-d04868306825" class="code"><code class="language-SQL">SELECT * FROM contratos
+FOR system_time BETWEEN &#x27;2025-03-21&#x27; AND &#x27;2025-03-23&#x27;
+ORDER BY ID_contrato;
+GO</code></pre><figure id="1bebadfb-262d-80a6-8984-c0c8a61b12d9" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-22_a_las_12.46.26.png"><img style="width:1280.984375px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-22_a_las_12.46.26.png"/></a></figure><p id="1bebadfb-262d-8072-8fed-dd823eafc0b6" class="">
+</p><h3 id="1bebadfb-262d-803f-a03b-efa87e27dfad" class=""><span style="border-bottom:0.05em solid">CONTAINED IN</span></h3><p id="1bebadfb-262d-804c-99d9-cbc72e62dfb5" class="">Selecciona los registros que estuvieron activos COMPLETAMENTE dentro del periodo especificado, es decir, que al inicio del periodo estaban y que al final del mismo también.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1bebadfb-262d-80a3-84f3-c7bb19c4216c" class="code"><code class="language-SQL">
+SELECT * FROM contratos
+FOR system_time CONTAINED IN (&#x27;2025-03-21&#x27;,&#x27;2025-03-23&#x27;)
+WHERE T_contrato = &#x27;Temporal&#x27;;
+GO</code></pre><figure id="1bebadfb-262d-806c-b0aa-c1e44ab567b0" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-22_a_las_12.56.44.png"><img style="width:1280.953125px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-22_a_las_12.56.44.png"/></a></figure><p id="1bebadfb-262d-80c4-8bfc-cfaf65593be2" class="">
+</p><h3 id="1bebadfb-262d-8055-ae6f-fc1b51eca1f4" class=""><span style="border-bottom:0.05em solid">Limitaciones</span></h3><ol type="1" id="1bebadfb-262d-809f-8a60-ebb038150c71" class="numbered-list" start="1"><li>Las consultas temporales sobre un Servidor Vinculado no son compatibles.</li></ol><ol type="1" id="1bebadfb-262d-8022-8961-dfa5b1b5222e" class="numbered-list" start="2"><li>La tabla de historial no puede tener restricciones (clave primaria, clave foránea, restricciones de tabla o de columna).</li></ol><ol type="1" id="1bebadfb-262d-80bc-9f3a-e981a5bc351f" class="numbered-list" start="3"><li>Las sentencias INSERT y UPDATE no pueden hacer referencia a las columnas del período SYSTEM_TIME.</li></ol><ol type="1" id="1bebadfb-262d-8093-8058-fbbe5c53f5ac" class="numbered-list" start="4"><li>El comando TRUNCATE TABLE no es compatible mientras SYSTEM_VERSIONING está activado.</li></ol><ol type="1" id="1bebadfb-262d-8014-a130-cb1d13e9b010" class="numbered-list" start="5"><li>No está permitido modificar directamente los datos en una tabla de historial.</li></ol><ol type="1" id="1bebadfb-262d-80dc-ba69-d8b96fbdcd52" class="numbered-list" start="6"><li>No se permiten los triggers INSTEAD OF en ninguna de las tablas.</li></ol><ol type="1" id="1bebadfb-262d-8086-a0b6-d6f30d6ff756" class="numbered-list" start="7"><li>El uso de tecnologías de replicación está limitado.</li></ol><hr id="1bebadfb-262d-80ce-a695-ce5127370e50"/><h1 id="1acbadfb-262d-8061-a2b2-c4c7656cb0dd" class="">11.- Tablas en memoria</h1><p id="1bebadfb-262d-802e-b451-e6681993f192" class="">Las <strong>tablas en memoria</strong> (In-Memory OLTP) en SQL Server están diseñadas para mejorar el rendimiento almacenando datos en memoria en lugar de en disco. Estas tablas utilizan un motor optimizado para transacciones rápidas y minimizan la contención de bloqueos, lo que las hace ideales para escenarios de alta concurrencia.</p><p id="1bebadfb-262d-8012-baa0-df2aa5c4fcd5" class=""><strong>Características principales:</strong></p><ul id="1bebadfb-262d-8048-ab4b-c1c6bda30fcf" class="bulleted-list"><li style="list-style-type:disc">No generan bloqueos en las transacciones (debido a su arquitectura sin bloqueo).</li></ul><ul id="1bebadfb-262d-801b-9659-d265b11204ee" class="bulleted-list"><li style="list-style-type:disc">Son significativamente más rápidas que las tablas tradicionales en disco.</li></ul><ul id="1bebadfb-262d-80fd-bacd-eeeac596dcbd" class="bulleted-list"><li style="list-style-type:disc">Pueden ser <strong>duraderas</strong> (persisten en disco) o <strong>no duraderas</strong> (solo existen en memoria temporalmente).</li></ul><ul id="1bebadfb-262d-801c-ab30-e98a89470b00" class="bulleted-list"><li style="list-style-type:disc">Requieren un <strong>grupo de archivos en memoria</strong> en la base de datos.</li></ul><p id="1bebadfb-262d-8006-a745-e0d5c2cf543e" class="">
+</p><p id="1bebadfb-262d-805b-9ffe-eb5546ef3c01" class="">
+</p><p id="1bebadfb-262d-8065-9ebf-d5557339303d" class="">Para probar el funcionamiento, vamos a crear la tabla ReservaClasesPracticas_Disco y ReservaClasesPracticas_Memoria, haremos una prueba insertando 50.000 registros (aunque son pocos, seguramente ya se note la diferencia.</p><p id="1bebadfb-262d-806a-ae36-d41c31f5981d" class="">Primero creamos el filegroup para memoria optimizada:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1bebadfb-262d-80a5-bb60-e7b0e31ffb60" class="code"><code class="language-SQL">ALTER DATABASE AutoescuelaP
+ADD FILEGROUP AutoescuelaP_mod CONTAINS MEMORY_OPTIMIZED_DATA;
+GO</code></pre><p id="1bebadfb-262d-80c9-85f1-e8b6719a7556" class="">Añadimos el archivo:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1bebadfb-262d-80ae-8d48-c81b74e9b4fd" class="code"><code class="language-SQL">ALTER DATABASE AutoescuelaP ADD FILE(
+    NAME = &#x27;AutoescuelaP_mod&#x27;,
+    FILENAME = &#x27;C:\Data\AutoescuelaP_mod.ndf&#x27;
+)
+TO FILEGROUP AutoescuelaP_mod;
+GO</code></pre><p id="1bebadfb-262d-809f-8856-d00ef7b4afde" class="">Creamos la tabla en disco y la tabla en memoria:</p><blockquote id="1bebadfb-262d-805f-8633-fde5dd0fc599" class=""><mark class="highlight-yellow_background">**MUY IMPORTANTE acordarse siempre de Filegroup MEMPRY_OPTIMIZED_DATA para la tabla en memoria.</mark></blockquote><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1bebadfb-262d-800d-82fb-c0e39af97169" class="code"><code class="language-SQL">-- Tabla en disco 
+CREATE TABLE dbo.ReservasClasesPracticas_Disco
+(
+    ID INT IDENTITY PRIMARY KEY,
+    Alumno NVARCHAR(20),
+    Fecha DATETIME,
+    Vehiculo NVARCHAR(20),
+    Estado NVARCHAR(10)
+);
+
+-- Tabla en memoria 
+-- IMPORTANTE acordarse de: FileGroup MEMORY_OPTIMIZED_DATA
+ALTER DATABASE CURRENT ADD FILEGROUP PracticasFG CONTAINS MEMORY_OPTIMIZED_DATA;
+ALTER DATABASE CURRENT ADD FILE (NAME=&#x27;Practicas_Data&#x27;, FILENAME=&#x27;C:\Data\Practicas_Data&#x27;) TO FILEGROUP PracticasFG;
+
+CREATE TABLE dbo.ReservasClasesPracticas_Memoria(
+    ID INT IDENTITY PRIMARY KEY NONCLUSTERED,
+    Alumno NVARCHAR(20),
+    Fecha DATETIME,
+    Vehiculo NVARCHAR(20),
+    Estado NVARCHAR(10)
+) WITH (MEMORY_OPTIMIZED = ON, DURABILITY = SCHEMA_AND_DATA);
+GO</code></pre><p id="1bebadfb-262d-8044-a3d0-de59bf933c67" class="">Creamos procedimiento que, dándole la ubicacion, inserte 50.000 registros en la tabla en memoria o en la tabla en disco y nos devuelva el tiempo que tarda en realizar la operación:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1bebadfb-262d-8014-981b-f598f6a88a30" class="code"><code class="language-SQL">CREATE OR ALTER PROCEDURE GenerarReservasPracticas
+    @TipoTabla NVARCHAR(10) = &#x27;DISCO&#x27; -- &#x27;DISCO&#x27; o &#x27;MEMORIA&#x27;
+AS
+BEGIN
+    DECLARE @contador INT = 1;
+    DECLARE @Alumno NVARCHAR(20);
+    DECLARE @Fecha DATETIME;
+    DECLARE @Vehiculo NVARCHAR(20);
+    DECLARE @Estado NVARCHAR(10);
+    DECLARE @Inicio DATETIME = GETDATE();
+
+    WHILE @contador &lt;= 50000
+    BEGIN
+        SET @Alumno = (SELECT TOP 1 Nombre FROM (VALUES (&#x27;Borja&#x27;), (&#x27;Ana&#x27;), (&#x27;Carlos&#x27;), (&#x27;Marta&#x27;), 
+                                  (&#x27;Javier&#x27;), (&#x27;Lucía&#x27;), (&#x27;David&#x27;)) AS N(Nombre) ORDER BY NEWID());
+        
+        SET @Fecha = DATEADD(DAY, FLOOR(RAND() * 30), GETDATE());
+        
+        SET @Vehiculo = RIGHT(&#x27;0000&#x27; + CAST(FLOOR(RAND() * 10000) AS NVARCHAR(4)), 4) + &#x27;-&#x27; + 
+                       CHAR(65 + FLOOR(RAND() * 26)) + 
+                       CHAR(65 + FLOOR(RAND() * 26)) + 
+                       CHAR(65 + FLOOR(RAND() * 26));
+        
+        SET @Estado = (SELECT TOP 1 Estado FROM (VALUES (&#x27;Pendiente&#x27;), (&#x27;Completada&#x27;), (&#x27;Cancelada&#x27;)) 
+                      AS E(Estado) ORDER BY NEWID());
+
+        IF @TipoTabla = &#x27;DISCO&#x27;
+            INSERT INTO dbo.ReservasClasesPracticas_Disco (Alumno, Fecha, Vehiculo, Estado)
+            VALUES (@Alumno, @Fecha, @Vehiculo, @Estado);
+        ELSE
+            INSERT INTO dbo.ReservasClasesPracticas_Memoria (Alumno, Fecha, Vehiculo, Estado)
+            VALUES (@Alumno, @Fecha, @Vehiculo, @Estado);
+
+        SET @contador += 1;
+    END;
+
+    DECLARE @TiempoEjecucion INT = DATEDIFF(MILLISECOND, @Inicio, GETDATE());
+    SELECT CONCAT(&#x27;Tiempo de ejecución: &#x27;, @TiempoEjecucion, &#x27; ms&#x27;) AS Resultado;
+END;
+GO</code></pre><p id="1bebadfb-262d-802b-aff0-ce4f16c4ecb8" class="">Realizamos ambas pruebas:</p><div id="1bebadfb-262d-8013-9fd2-c6c20d5cc667" class="column-list"><div id="1bebadfb-262d-80e6-95b1-d4ec054ec20c" style="width:43.75%" class="column"><figure id="1bebadfb-262d-80f2-aa95-dd6521582907" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-22_a_las_18.22.24.png"><img style="width:434.390625px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-22_a_las_18.22.24.png"/></a></figure></div><div id="1bebadfb-262d-80ea-b74e-feb3a974e60c" style="width:56.25%" class="column"><figure id="1bebadfb-262d-8027-8e12-e417d8f45574" class="image"><a href="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-22_a_las_18.26.34.png"><img style="width:461px" src="TAREA3%20Modelado%20-Adm%20SQL%20SERVER%2011abadfb262d80e68bbec8ebf72b0be5/Captura_de_pantalla_2025-03-22_a_las_18.26.34.png"/></a></figure></div></div><p id="1bebadfb-262d-80ea-9544-f6af36187c60" class="">Como podemos observar, aunque la operación ha sido con pocos datos, ya se nota la diferencia del disco a memoria.</p><p id="1bebadfb-262d-80de-8059-f0c9fdb17c60" class="">
+</p><p id="1bebadfb-262d-809f-82d0-ff8d6b275cdd" class=""><mark class="highlight-orange"><strong>DURABILITY = SCHEMA_AND_DATA</strong></mark></p><p id="1bebadfb-262d-8055-b834-f5b856b3690f" class="">Ante una caida del sistema o algún problema, se recuperará el esquema y los datos, con la opción SCHEMA_ONLY solo se recuperará el esquema.</p><p id="1bebadfb-262d-8097-a48b-c50647aeab1f" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
