@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:6.0
+    container_name: mongodb
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+      - ./init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh
+      - ./init.js:/docker-entrypoint-initdb.d/init.js
+
+  webapp:
+    build: ./webapp
+    ports:
+      - "5000:5000"
+    environment:
+      MONGO_URI: "mongodb://root:example@mongodb:27017"
+    depends_on:
+      - mongo
+
+volumes:
+  mongo_data:

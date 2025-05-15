@@ -1,0 +1,1 @@
+mongoimport --host mongodb --db testdb --collection properties --type json --file /mongo-seed/data.json --jsonArray
