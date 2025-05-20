@@ -1,0 +1,69 @@
+version: '3.8'
+
+services:
+
+  configsvr:
+    image: mongo
+    container_name: configsvr
+    command: ["mongod", "--configsvr", "--replSet", "configReplSet", "--port", "27019"]
+    ports:
+      - "27019:27019"
+    volumes:
+      - ./data/config:/data/db
+    networks:
+      - mongo-cluster
+
+  shard1:
+    image: mongo
+    container_name: shard1
+    command: ["mongod", "--shardsvr", "--replSet", "shard1ReplSet", "--port", "27018"]
+    ports:
+      - "27018:27018"
+    volumes:
+      - ./data/shard1:/data/db
+    networks:
+      - mongo-cluster
+
+  shard2:
+    image: mongo
+    container_name: shard2
+    command: ["mongod", "--shardsvr", "--replSet", "shard2ReplSet", "--port", "27017"]
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data/shard2:/data/db
+    networks:
+      - mongo-cluster
+
+  shard3:
+    image: mongo
+    container_name: shard3
+    command: ["mongod", "--shardsvr", "--replSet", "shard3ReplSet", "--port", "27016"]
+    ports:
+      - "27016:27016"
+    volumes:
+      - ./data/shard3:/data/db
+    networks:
+      - mongo-cluster
+
+  mongos:
+    image: mongo
+    container_name: mongos
+    depends_on:
+      - configsvr
+      - shard1
+      - shard2
+      - shard3
+    command: >
+      bash -c "
+        sleep 10 &&
+        mongos --configdb configReplSet/configsvr:27019 --port 27017 --bind_ip_all"
+    ports:
+      - "27020:27017"
+    networks:
+      - mongo-cluster
+
+networks:
+  mongo-cluster:
+    driver: bridge
+

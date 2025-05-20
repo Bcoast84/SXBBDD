@@ -1,0 +1,25 @@
+
+services:
+  postgres:
+    container_name: postgres_db
+    image: postgres:latest
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: manuel
+      POSTGRES_PASSWORD: Abcd1234.
+      POSTGRES_DB: manuel
+    volumes:
+      - ./data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: manuel@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: Abcd1234.
+    depends_on:
+      - postgres

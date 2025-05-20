@@ -1,0 +1,6 @@
+exit
+})
+  members: [{ _id: 0, host: "configsvr:27019" }]
+  configsvr: true,
+  _id: "configReplSet",
+rs.initiate({

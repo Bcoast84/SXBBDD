@@ -1,0 +1,5 @@
+exit
+})
+  members: [{ _id: 0, host: "shard3:27016" }]
+  _id: "shard3ReplSet",
+rs.initiate({
