@@ -1,0 +1,8 @@
+FROM phpmyadmin/phpmyadmin
+
+ENV PMA_HOST=autoescuela-mysql
+ENV PMA_PORT=3306
+ENV PMA_USER=borja
+ENV PMA_PASSWORD=Abcd1234.
+
+EXPOSE 80
